@@ -1,0 +1,49 @@
+.nice-text {
+    padding-left: 20px;
+}
+
+.navbar {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.navbar a {
+    display: block;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 60%;
+    border-style: solid;
+}
+
+.container {
+    background-image: url(../img/design1_image1.jpg);
+    background-repeat: no-repeat;
+    background-size:cover;
+    height: 400px;  
+}
+
+h2 {
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+
+.logo {
+    top: 375px;
+    right: 55px;
+    width: 100px;
+    position: absolute;
+}
+
+
+.content {
+    display: inline-block;
+    width: 80%;
+}
+
+
+a:link {
+    color:blue;
+    background-color:red;
+}
