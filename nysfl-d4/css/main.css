@@ -1,0 +1,90 @@
+.nice_text {
+    padding-left: 20px;
+}
+
+.navbar {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/*navbar a {
+    display: block;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 60%;
+    border-style: solid;
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+}*/
+
+/* The greem button  */
+.green_link {
+    border-style: solid;
+    text-decoration: none;
+    background-color: green;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 15px 15px;
+}
+
+/* the blie button */
+.blue_link {
+    flex-direction: row;
+    border-style: solid;
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 15px 15px;
+}
+
+.container {
+    background-image: url(../img/design1_image1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+}
+
+
+/* the location of the logo */
+.logo {
+    top: 375px;
+    right: 55px;
+    width: 100px;
+    position: absolute;
+}
+
+/* This is the style which is applied to the contents */
+.content {
+    display: inline-block;
+    width: 80%;
+}
+
+
+h1,
+h2,
+h3,
+h4 {
+    text-align: center;
+}
+
+/* the cotainer for all navigation elements */
+.navigation_elements {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+
+/* this is for imortant text elements */
+.important {
+    font-weight: bold;
+    /*color: red; */
+}
+
+.col1, .col2, .col3, .col4 {
+    width: 20%;
+}
