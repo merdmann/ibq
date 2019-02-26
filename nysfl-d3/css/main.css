@@ -85,6 +85,6 @@ h4 {
     /*color: red; */
 }
 
-.col1, col2, col3, col4 {
+.col1, .col2, .col3, .col4 {
     width: 20%;
 }
