@@ -78,9 +78,13 @@ h4 {
     justify-content: flex-end;
 }
 
+
 /* this is for imortant text elements */
 .important {
     font-weight: bold;
-    color: red;
+    /*color: red; */
 }
 
+.col1, .col2, .col3, .col4 {
+    width: 20%;
+}
