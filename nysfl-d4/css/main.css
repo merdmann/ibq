@@ -85,7 +85,20 @@ h4 {
     /*color: red; */
 }
 
-.col1, .col2, .col3, .col4 {
+/* This is beeing used to organize the columns of the game results */
+.col1  {
+    width: 20%;
+    text-align: center;
+}
+.col2  {
+    width: 20%;
+    text-align: center;
+}
+.col3  {
+    width: 20%;
+    text-align: center;
+}
+.col4  {
     width: 20%;
     text-align: center;
 }
