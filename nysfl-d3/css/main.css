@@ -90,7 +90,20 @@ h4 {
 }
 
 
-.underline[type="text"] {  
-  border: 0;
-  border-bottom-color: black;
+input[type="text"] {  
+  border-style: hidden;  
+  border-bottom-style: solid;
+
+}
+
+input[type="date"] {  
+  border-style: hidden;
+  border-bottom-style: solid;
+
+}
+
+input[type="email"] {  
+  border-style: hidden;
+  border-bottom-style: solid;
+
 }
