@@ -88,3 +88,9 @@ h4 {
 .col1, .col2, .col3, .col4 {
     width: 20%;
 }
+
+
+.underline[type="text"] {  
+  border: 0;
+  border-bottom-color: black;
+}
