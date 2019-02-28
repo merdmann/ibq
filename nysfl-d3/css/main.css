@@ -85,8 +85,15 @@ h4 {
     /*color: red; */
 }
 
-.col1, .col2, .col3, .col4 {
-    width: 20%;
+table {
+    padding:25px;
+    width: 60%;
+}
+
+td {
+    width: 30%;
+    text-align: center;
+    background-color: aliceblue;
 }
 
 
