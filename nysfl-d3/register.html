@@ -23,40 +23,42 @@
         </div>
         <div class="container">
             <h1>Northside Youth Soccer Leage</h1>
-            <img class="logo" src="img/nysl_logo.png" alt="Logo" />
+            <img class="logo_placement" src="img/nysl_logo.png" alt="Logo" />
         </div>
         <h2>Joining us</h2>   
     </header>
     <form action="/show_data.html">
         <fieldset>
             <legend>Who</legend>
-            Players Firstname: <input class="underline" type="text" name="Firstname">
-            Last Name: <input class="underline" type="text" name="lastname">
+            Players Firstname: <input type="text" name="Firstname">
+            Last Name: <input type="text" name="lastname">
             Streetaddress <input type="text" name="street">
-            City <input class="underline" type="text" name="city">
+            City <input  type="text" name="city">
 
             Birth Date (mm/dd/yyyy): <input type="date" name="birthday"><br>
             Gender: Female <input type="checkbox" name="gender_female">Male
             <input type="checkbox" name="gender_male">
             <br>
+       <a href="http://www.fifa.com">Fifa</a><br>
+       <a href="http://www.fifa.com">Fifa</a><br>
             Grade: <input type="checkbox" name="Pre-School">Pre-School
-            1st<input type="checkbox" name="Grade_1">
-            2nd<input type="checkbox" name="Grade_2">
-            3rd<input type="checkbox" name="Grade_3">
-            4th<input type="checkbox" name="Grade_4">
-            5th<input type="checkbox" name="Grade_5">
+            1st<input type="checkbox" name="Grade" value="1">
+            2nd<input type="checkbox" name="Grade" value="2">
+            3rd<input type="checkbox" name="Grade" value="3">
+            4th<input type="checkbox" name="Grade" value="4">
+            5th<input type="checkbox" name="Grade" value="5">
             <br>
-            Parent/Guardian: <input class="underline" type="text" name="guardian">
+            Parent/Guardian: <input type="text" name="guardian">
             Contact Phone: <input type="text" name="phone"> Contact Email : <input type="email" name="email">
         </fieldset>
         <fieldset>
             <legend>Where</legend>
             <p class="important">First Closest School:</p>
-            <input type="checkbox" name="First Closest" value="Marjorie P Hart">Marjorie P Hart
-            <input type="checkbox" name="First Closest" value="AJ Katzenmaier">AJ Katzenmaier
-            <input type="checkbox" name="First Closest" value="Marjorie P Hart Greenbay North Elementary">Marjorie P Hart Greenbay North Elementary
-            <input type="checkbox" name="First Closest" value="Greenbay North Elementary">Marjorie P Hart Marjorie P Hart
-            <input type="checkbox" name="First Closest" value="Howard A Yeager South Elementary">Howard A Yeager South Elementary
+            <input type="checkbox" name="1stClosest" value="Marjorie P Hart">Marjorie P Hart
+            <input type="checkbox" name="1stClosest" value="AJ Katzenmaier">AJ Katzenmaier
+            <input type="checkbox" name="1stClosest" value="Marjorie P Hart Greenbay North Elementary">Marjorie P Hart Greenbay North Elementary
+            <input type="checkbox" name="1stClosest" value="Greenbay North Elementary">Marjorie P Hart Marjorie P Hart
+            <input type="checkbox" name="1stClosest" value="Howard A Yeager South Elementary">Howard A Yeager South Elementary
 
             <p class="important"> Second Closest School:</p>
             <input type="checkbox" name="2ndClosest"  value="AJ Katzenmaier">AJ Katzenmaier
@@ -100,10 +102,33 @@
             sponsored activities, which transportation.
             By signing below, I hereby agree and authorize the above. In addition, by signing below, I also acknowledge that I have read the
             cancellation policy and agree to its terms.
-            Parent/Guardian Signature: <input type="text"> <input type="date">
+            Parent/Guardian Signature: <input type="text" name="Signature"> <input type="date">
             <input type="submit">
         </fieldset>
     </form>
+   <footer class="pageFooter">
+        <div class="footerTextArea">
+            <a href="http://www.fifa.com">Fifa</a><br>
+            <a href="https://www.usadultsoccer.com/">US Addult Soccer</a><br>
+            <a href="https://www.meetup.com/Kick-It-Social-Soccer/">Chicago Social Soccer</a><br>
+        </div>
+
+        <div class="footerTextLocation">
+            <div class="footerTitle">Contact</div>
+            <div class="footerText">
+                Michael Randall, League Coordinator
+                Phone: (630) 690-8132 <a href=emailTo>michael.randall@chisoccer.org</a> or in case of general queries
+                e-mail us at <a href="emailto:nysl@chisoccer.org">chisoccer.org</a>
+            </div>
+        </div>
+
+        <div>
+            <div class="footerTitle">Mission</div>
+            <p class="footerText">
+                To support young athletes living in Chicago northside neighborhoods, who have an interest in learning and playing soccer, with opportunities to learn and practice skills related tothe game of soccer, specifically those skills arround team coorperation and good sportsmanship
+            </p>
+        </div>
+    </footer>
 </body>
 
 </html>
