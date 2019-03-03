@@ -106,7 +106,7 @@ input[type="email"] {
 
 }
 /* the footer magic starts here. Contnets is distributed using  a flexbox*/
-.pageFooter {
+.page_footer {
     display: flex;
     background-color: black;
     justify-content: space-around;
@@ -118,15 +118,17 @@ input[type="email"] {
 
 /* he footer section is simply dark */
 footer {
+    margin-top: 20px;
     color: #545454
 }
-.missionStatement {
+.mission_statement {
     width:200px;
     height:100px;
     display: block;
 }
 
-.footerText {
+
+.footer_text {
     width: 300px;
     height: 200px;
     display: block;
@@ -136,14 +138,14 @@ footer {
     margin-bottom: 0;
 }
 
-.footerTitle {
+.footer_title {
     color: white;
     font-weight: 400;
     font-size: 25px;
     margin-top: 50px;
 }
 
-.footerTextArea {
+.footer_text_area {
     margin-top: 50px;
     Display: block;
     
