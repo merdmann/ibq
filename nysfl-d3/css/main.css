@@ -150,3 +150,7 @@ footer {
     Display: block;
     
 }
+.copyright {
+        display: block;
+        text-align: center;
+}
