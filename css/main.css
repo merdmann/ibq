@@ -1,0 +1,152 @@
+.nice_text {
+}
+
+
+
+
+/* The green button  */
+.green_link {
+    border-style: solid;
+    text-decoration: none;
+    background-color: green;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 15px 15px;
+} 
+
+.blue_link {
+    flex-direction: row;
+    border-style: solid;
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 15px 15px;
+}
+
+/* here we have the logo locations and coverimages */ 
+.container {
+    background-image: url(../img/design1_image1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+}
+
+
+/* the location of the logo in the comtainer above */
+.logo_placement {
+    top: 420px;
+    right: 10px;
+    width: 100px;
+    position: absolute;
+}
+
+/* This is the style which is applied to the contents */
+.content {
+    display: inline-block;
+    width: 80%;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+a {
+  color: coral;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    text-align: center;
+}
+
+/* the cotainer for all navigation elements */
+.navigation_elements {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+
+/* this is for imortant text elements */
+.important {
+    font-weight: bold;
+    /*color: red; */
+}
+
+table {
+    padding:25px;
+    width: 60%;
+}
+
+td {
+    width: 30%;
+    text-align: center;
+    background-color: aliceblue;
+}
+
+/* this just to get the unterlines in input fields of the registration form*/
+input[type="text"] {  
+  border-style: hidden;  
+  border-bottom-style: solid;
+
+}
+
+input[type="date"] {  
+  border-style: hidden;
+  border-bottom-style: solid;
+}
+
+input[type="email"] {  
+  border-style: hidden;
+  border-bottom-style: solid;
+
+}
+/* the footer magic starts here. Contnets is distributed using  a flexbox*/
+.page_footer {
+    display: flex;
+    background-color: black;
+    justify-content: space-around;
+    color:white; 
+    height: 300px;
+        
+    flex-direction: row
+}
+
+/* he footer section is simply dark */
+footer {
+    margin-top: 20px;
+    color: #545454
+}
+.mission_statement {
+    width:200px;
+    height:100px;
+    display: block;
+}
+
+
+.footer_text {
+    width: 300px;
+    height: 200px;
+    display: block;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+.footer_title {
+    color: white;
+    font-weight: 400;
+    font-size: 25px;
+    margin-top: 50px;
+}
+
+.footer_text_area {
+    margin-top: 50px;
+    Display: block;
+    
+}
