@@ -118,13 +118,13 @@ console.log("%c Exercise 6 ", 'background: #222; color: #bada55');
 
 //Discomment this code and define the function to make this works
 
-average(10, 30) //Output: 20
-average(6, 10) //Output: 8
+console.log(average(10, 30)); //Output: 20
+console.log(average(6, 10)); //Output: 8
 
 //Your code here
 
 
-function avrage(a,b) {
+function average(a,b) {
     return (a+b)/2
 }
 
@@ -136,20 +136,21 @@ console.log("%c Exercise 7 ", 'background: #222; color: #bada55');
 //Your code here
 
 function duplicate(nbr) {
-    result = [];
+    var result = [];
     
-    for(i=0; i <nbrs.length; ++i ) {
-        for(j=+1; j <nbrs.length; ++j)
-            if(nbrs[i]===nbrs[j])
-                result.push(nbrs[i]);
+    for(i=0; i<nbr.length; ++i ) {
+        for(j=i+1; j<nbr.length; ++j)
+            if(nbr[i]===nbr[j])
+                result.push(nbr[i]);
     }
     
     return result;
 }   
 
-console.log( duplicate( [2, 3, 4, 3, 2, 2, 1] ));
+console.log( "Duplicates: " + duplicate( [2, 3, 4, 3, 2, 2, 1] ));
 
 
+// --------------------------------------------------------------
 console.log("%c Exercise 8 ", 'background: #222; color: #bada55');
 
 //Why this console.log shows 'undefined'?
