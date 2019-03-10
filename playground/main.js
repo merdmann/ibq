@@ -23,6 +23,7 @@
                 console.log("Exercise 1: test success: " + test); 
 
             })();
+            //-------------------------------------------------------------------------------
 
             function ssort( aString ) {
                 result = aString.split().sort();
@@ -34,6 +35,7 @@
                 console.log( ssort( "webmaster") );
             })();
 
+            //--------------------------------------------------------------------------------
             function UpperCaseParagraph( aString ) {
                 var text = aString.split(' ');
 
@@ -44,6 +46,7 @@
                 return text;
 
             }
+            //---------------------------------------------------------------------------------
             
             // Sorting an Array - Exercise 1
             function sortByNames( names ) {
@@ -123,7 +126,6 @@
 
             var test = findHighest( [20, 150, 33, 12, 234, 3812345] ) === 3812345
             console.log("finHigest .... success=" + test );
-
 
             // ----------------------------------------------------------------------------
             function at( aArray, position) {
