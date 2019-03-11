@@ -1,4 +1,6 @@
- 
+document.addEventListener('DOMContentLoaded',function(){
+            console.log("DOM Tree loaded");
+
             // excersice 1; revert numbers
             function revert(x) {
                 var tmp = x;
@@ -175,73 +177,68 @@
             //------------------------------------------------------------------
 
             function addBand(root, bands) {
-                elem = document.getElementById (root);  
+                elem = document.getElementById ("root");  
 
                 for(var i=0; i<bands.length; ++i) {
-                    var p = document.createElement("p")
+                    var p = document.createElement("p");
                     var t = document.createTextNode(bands[i]);
                     p.appendChild(t);
 
-                    elem.appendChild(p)
+                    elem.appendChild(p);
                 }
             }
 
-            document.addEventListener("DOMContentLoaded", function(event) {
-                console.log("DOM fully loaded and parsed");
+    
                 
-                addBand("TheBand", ["U2", "Adele" ])
+            addBand("TheBand", ["U2", "Adele", "Vangelis" ]);
 
-              });
-
-
-	document.addEventListener('DOMContentLoaded',function(){
-		console.log("DOM Tree loaded");
-
-		function toTable( rows ) {
-			var root = document.getElementById("root");
-			var tab = document.createElement("table");
+            //------------------------------------------------------------------
+		    function toTable( rows ) {
+			    var root = document.getElementById("root");
+			    var tab = document.createElement("table");
 		
-			for(var i=0; i<rows.length; ++i) {
-				var tr = document.createElement("tr");
+			    for(var i=0; i<rows.length; ++i) {
+				    var tr = document.createElement("tr");
 
-				// building a single table row
+				    // building a single table row
 
-				// create  a cell for the first_namd
-				var td = document.createElement("td");
-				td.appendChild( document.createTextNode(rows[i].first_name));
-				tr.appendChild(td);
+				    // create  a cell for the first_namd
+                    var td = document.createElement("td");
+                    var text = document.createTextNode(rows[i].first_name);
+				    td.appendChild( text );
+				    tr.appendChild(td);
 
-				// create a cell for the last name
-				td = document.createElement("td");
-				text = document.createTextNode(rows[i].last_name)
-				td.appendChild( text );
-				tr.appendChild(td);
+				    // create a cell for the last name
+				    var td = document.createElement("td");
+				    var text = document.createTextNode(rows[i].last_name);
+				    td.appendChild( text );
+				    tr.appendChild(td);
 
-				// create a cell with the party
-				td = document.createElement("td");
-				text = document.createTextNode(rows[i].party);
-				td.appendChild(text);
-				tr.appendChild(td);
+				    // create a cell with the party
+				    td = document.createElement("td");
+				    text = document.createTextNode(rows[i].party);
+				    td.appendChild(text);
+				    tr.appendChild(td);
 
-				// create a cell with the seniorty 
-				td = document.createElement("td");
-				text = document.createTextNode(rows[i].seniority);
-				td.appendChild( text );
-				tr.appendChild(td);
+				    // create a cell with the seniorty 
+				    td = document.createElement("td");
+				    text = document.createTextNode(rows[i].seniority);
+				    td.appendChild( text );
+				    tr.appendChild(td);
 				
-				// create a cell for the missed votes.
-				td = document.createElement("td");
-				text = document.createTextNode(rows[i].missed_votes);
-				td.appendChild( text );
-				tr.appendChild(td);
+				    // create a cell for the missed votes.
+				    td = document.createElement("td");
+				    text = document.createTextNode(rows[i].missed_votes);
+				    td.appendChild( text );
+				    tr.appendChild(td);
 
-				// end of cells, append rhe row to the table.
-				tab.appendChild(tr);
-			}
-			
-			root.appendChild(tab);
-		}
+            	    // end of cells, append the row to the table.
+				    tab.appendChild(tr);
+                } /* end for */ 
+                root.appendChild(tab);    
+            }; /* end toTable */
 
-		toTable( result.results[0].members );
-		
-})
+            toTable( result.results[0].members );
+
+            console.log("Test");
+});
