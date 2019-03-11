@@ -154,7 +154,9 @@ console.log( "Duplicates: " + duplicate( [2, 3, 4, 3, 2, 2, 1] ));
 console.log("%c Exercise 8 ", 'background: #222; color: #bada55');
 
 //Why this console.log shows 'undefined'?
-
+document.body.style.backgroundColor = "#222";
+document.body.style.color = "#bada55";
+    
 console.log(showMeTheResult(8, 9));
 
 function showMeTheResult(a, b) {
@@ -163,25 +165,35 @@ function showMeTheResult(a, b) {
 
 }
 
-
-
-
-
-
+//-----------------------------------------------------------------
 
 console.log("%c Exercise 9 ", 'background: #222; color: #bada55');
 
 //Create a table with JS and put inside a <tr> element for every element inside this array.
 //Later put every text inside this rows.
-
+document.body.style.backgroundColor = "#222";
+document.body.style.color = "#bada55";
+    
 let arrayOfRows = ["This is Row 1", "This is Row 2", "This is Row 3", "This is Row 4", "This is Row 5"];
 
 //Your code here
+    
+function toTable( rows ) {
+    var root = document.getElementById("root");
+    var tab = document.createElement("table");
 
+    for(var i=0; i<rows.length; ++i) {
+        var td = document.createElement("td");
+        td.appendChild( document.createTextNode(rows[i]));
+        var tr = document.createElement("tr");
+        tr.appendChild(  td);
+        tab.appendChild( tr)
+    }
+    
+    root.appendChild(tab);
+}
 
-
-
-
+toTable( arrayOfRows);
 
 console.log("%c Exercise 10 ", 'background: #222; color: #bada55');
 
