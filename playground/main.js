@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
 				    tab.appendChild(tr);
                 } /* end for */ 
-                root.appendChild(tab);    
             }; /* end toTable */
 
             toTable( result.results[0].members );
