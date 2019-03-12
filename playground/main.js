@@ -10,26 +10,35 @@ document.addEventListener('DOMContentLoaded',function(){
 				tab.setAttribute("class", "table table-striped");
 				
 			    for(var i=0; i<rows.length; ++i) {
-				    var tr = document.createElement("tr");
+					var tr = document.createElement("tr");
 				    var row  = tab.insertRow(-1);
 					  
+					//---------------------- col 1: first_name ---------------------------
 					var  td = row.insertCell(0);
- 					td.appendChild(document.createTextNode(rows[i].first_name));  				
-					var  td = row.insertCell(-1);
-					td.appendChild(document.createTextNode(rows[i].last_name));
-					
+					var  name = "";
+
+					if(rows[i].middle_name === null) {
+						name = rows[i].first_name + " " + rows[i].last_name;	
+					} 
+					else {
+						name = rows[i].first_name + " " + rows[i].middle_name + " " + rows[i].last_name;
+					}
+				
+					td.appendChild(document.createTextNode(name));  				
+					 
+					//----------------------col 4: party ----------------------------------
 					var  td = row.insertCell(-1);
 					td.appendChild(document.createTextNode(rows[i].party));
 
 					var  td = row.insertCell(-1);
-					td.appendChild(document.createTextNode(rows[i].seniority));
-
-
+					td.appendChild(document.createTextNode(rows[i].votes_with_party_pct));
+					
+					//----------------------- link to homepage ----------------------------
 
 					var  td = row.insertCell(-1);
 					var a = document.createElement("a");
 					a.href = rows[i].url;
-					a.title="some link to " +rows[i].last_name + " page";
+					a.title="some link to " + name + " page";
 					a.innerHTML = rows[i].url;
 					td.appendChild(a);
 
