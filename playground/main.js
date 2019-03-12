@@ -18,6 +18,16 @@ document.addEventListener('DOMContentLoaded',function(){
 				th.appendChild( text );
 				tr.appendChild(th);
 
+				var th = document.createElement("th");
+				var text = document.createTextNode("Party");
+				th.appendChild( text );
+				tr.appendChild(th);
+
+				var th = document.createElement("th");
+				var text = document.createTextNode("Seniority");
+				th.appendChild( text );
+				tr.appendChild(th);
+
 				tab.appendChild(tr)
 				
 			    for(var i=0; i<rows.length; ++i) {
@@ -57,12 +67,11 @@ document.addEventListener('DOMContentLoaded',function(){
 					
 					// create a cell for the missed votes.
 					td = document.createElement("td");
-					//text = document.createTextNode(rows[i].url);
 					var a = document.createElement("a");
 					a.href = rows[i].url;
 					a.title="some link to " +rows[i].last_name + " page";
 					a.innerHTML = rows[i].url;
-					a.appendChild(text);
+					//a.appendChild(text);
 					td.appendChild(a);
 					td.appendChild(text);
 					tr.appendChild(td);
