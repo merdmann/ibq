@@ -1,27 +1,25 @@
 document.addEventListener('DOMContentLoaded',function(){
             console.log("DOM Tree loaded");
 
-       
-            //------------------------------------------------------------------
-
-            function addBand(root, bands) {
-                elem = document.getElementById (root);  
-
-                for(var i=0; i<bands.length; ++i) {
-                    var p = document.createElement("p");
-                    var t = document.createTextNode(bands[i]);
-                    p.appendChild(t);
-
-                    elem.appendChild(p);
-                }
-            }
-            addBand("root", ["U2", "Adele", "Vangelis" ]);
-
             //------------------------------------------------------------------
 		    function toTable( rows ) {
 			    var root = document.getElementById("root");
 			    var tab = document.createElement("table");
 		
+				var tr = document.createElement("tr");		// row 0 where the header goes
+
+				var th = document.createElement("th");
+				var text = document.createTextNode("Last Name");
+				th.appendChild( text );
+				tr.appendChild(th);
+
+				var th = document.createElement("th");
+				var text = document.createTextNode("First Name");
+				th.appendChild( text );
+				tr.appendChild(th);
+
+				tab.appendChild(tr)
+				
 			    for(var i=0; i<rows.length; ++i) {
 				    var tr = document.createElement("tr");
 
@@ -55,7 +53,19 @@ document.addEventListener('DOMContentLoaded',function(){
 				    td = document.createElement("td");
 				    text = document.createTextNode(rows[i].missed_votes);
 				    td.appendChild( text );
-				    tr.appendChild(td);
+					tr.appendChild(td);
+					
+					// create a cell for the missed votes.
+					td = document.createElement("td");
+					//text = document.createTextNode(rows[i].url);
+					var a = document.createElement("a");
+					a.href = rows[i].url;
+					a.title="some link to " +rows[i].last_name + " page";
+					a.innerHTML = rows[i].url;
+					a.appendChild(text);
+					td.appendChild(a);
+					td.appendChild(text);
+					tr.appendChild(td);
 
             	    // end of cells, append the row to the table.
 				    tab.appendChild(tr);
