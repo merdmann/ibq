@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <header>
+    <head>
         <meta charset=“utf-8”>
         <title>Simple Javascripts Sandbox</title>
 
@@ -12,10 +12,21 @@
 
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>        
-    </header>
+    </head>
 
     <body>
-        <div id="root"></div>
+        <table class="table striped-table">
+            <thead>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Party</th>
+                <th>Seniority</th>
+                <th>missed votes</th>
+            </thead>
+            <tbody  id="root">
+                
+            </tbody>
+        </table> 
 
         <script type="text/javascript" src="./pro-congress-113-house.json"></script>
         <script src="./main.js"></script>
