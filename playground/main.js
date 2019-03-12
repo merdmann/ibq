@@ -1,13 +1,15 @@
 document.addEventListener('DOMContentLoaded',function(){
-            console.log("DOM Tree loaded");
+			console.log("DOM Tree loaded");
+			
+
 
             //------------------------------------------------------------------
 		    function toTable( rows ) {
+				
 			    var root = document.getElementById("root");
 			    var tab = document.createElement("table");
 		
 				var tr = document.createElement("tr");		// row 0 where the header goes
-
 				var th = document.createElement("th");
 				var text = document.createTextNode("Last Name");
 				th.appendChild( text );
@@ -28,6 +30,11 @@ document.addEventListener('DOMContentLoaded',function(){
 				th.appendChild( text );
 				tr.appendChild(th);
 
+				var th = document.createElement("th");
+				var text = document.createTextNode("Homepage");
+				th.appendChild(text);
+				tr.appendChild(th);
+				
 				tab.appendChild(tr)
 				
 			    for(var i=0; i<rows.length; ++i) {
@@ -73,7 +80,7 @@ document.addEventListener('DOMContentLoaded',function(){
 					a.innerHTML = rows[i].url;
 					//a.appendChild(text);
 					td.appendChild(a);
-					td.appendChild(text);
+					//td.appendChild(text);
 					tr.appendChild(td);
 
             	    // end of cells, append the row to the table.
