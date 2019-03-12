@@ -15,21 +15,16 @@ document.addEventListener('DOMContentLoaded',function(){
 					  
 					//---------------------- col 1: first_name ---------------------------
 					var  td = row.insertCell(0);
-					var  name = "";
-
-					if(rows[i].middle_name === null) {
-						name = rows[i].first_name + " " + rows[i].last_name;	
-					} 
-					else {
-						name = rows[i].first_name + " " + rows[i].middle_name + " " + rows[i].last_name;
-					}
-				
-					td.appendChild(document.createTextNode(name));  				
-					 
+					
+					// calculate a valid name string 
+					var name = rows[i].first_name + ((rows[i].middle_name === null) ? " " : " "+rows[i].middle_name+" ") + rows[i].last_name;
+	
+					td.appendChild(document.createTextNode(name));  								 
 					//----------------------col 4: party ----------------------------------
 					var  td = row.insertCell(-1);
 					td.appendChild(document.createTextNode(rows[i].party));
 
+					//----------------------col 5: votes in percent -----------------------
 					var  td = row.insertCell(-1);
 					td.appendChild(document.createTextNode(rows[i].votes_with_party_pct));
 					
