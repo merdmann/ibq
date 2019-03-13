@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded',function() {
 
             // Display the result object in one table
             //------------------------------------------------------------------
-		    function toTable( rows ) {
+		    function toTable( rows, filter ) {
 		
 				var tab = document.getElementById("root");
 				tab.setAttribute("class", "table table-striped");
@@ -47,10 +47,15 @@ document.addEventListener('DOMContentLoaded',function() {
             toTable( results.results[0].members );
 			console.log("Test");
 
+            // SUBMIT BUTTON PRESSED
 			var submit = document.getElementById("btn-submit");
 			submit.addEventListener('click', function (){ 
 				var inputs = document.getElementsByTagName("input");
-				console.log(inputs);
+                var party = inputs[0].checked ? "D" : "";
+                    party = inputs[1].checked ? "R" : "";
+                    party = inputs[2].checked ? "I" : "";
+                
+				console.log(party);
 			});
 
 });
