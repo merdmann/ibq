@@ -41,6 +41,6 @@ document.addEventListener('DOMContentLoaded',function(){
                 } /* end for */ 
             }; /* end toTable */
 
-            toTable( result.results[0].members );
+            toTable( results.results[0].members );
             console.log("Test");
 });
