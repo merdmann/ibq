@@ -37,9 +37,20 @@ document.addEventListener('DOMContentLoaded',function() {
 					td.appendChild(a);
 
 				    tab.appendChild(tr);
-                } /* end for */ 
-            }; /* end toTable */
+                } /* end for */ 			function submit() {
+				console.log("Submit....");
+			}
+            }; /* end toTable */			function submit() {
+				console.log("Submit....");
+			}
 
             toTable( results.results[0].members );
-            console.log("Test");
+			console.log("Test");
+
+			var submit = document.getElementById("btn-submit");
+			submit.addEventListener('click', function (){ 
+				var inputs = document.getElementsByTagName("input");
+				console.log(inputs);
+			});
+
 });
