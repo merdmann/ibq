@@ -1,15 +1,14 @@
-document.addEventListener('DOMContentLoaded',function(){
-			console.log("DOM Tree loaded");
-			
+document.addEventListener('DOMContentLoaded',function() {
+            console.log("DOM Tree loaded");
 
-
+            // Display the result object in one table
             //------------------------------------------------------------------
 		    function toTable( rows ) {
 		
 				var tab = document.getElementById("root");
 				tab.setAttribute("class", "table table-striped");
 				
-			    for(var i=0; i<rows.length; ++i) {
+			    for (var i=0; i<rows.length; ++i) {
 					var tr = document.createElement("tr");
 				    var row  = tab.insertRow(-1);
 					  
@@ -17,7 +16,7 @@ document.addEventListener('DOMContentLoaded',function(){
 					var  td = row.insertCell(0);
 					
 					// calculate a valid name string 
-					var name = rows[i].first_name + ((rows[i].middle_name === null) ? " " : " "+rows[i].middle_name+" ") + rows[i].last_name;
+					var name = rows[i].first_name + " " + ((rows[i].middle_name === null) ? " " : rows[i].middle_name) + " " + rows[i].last_name;
 	
 					td.appendChild(document.createTextNode(name));  								 
 					//----------------------col 4: party ----------------------------------
@@ -26,7 +25,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
 					//----------------------col 5: votes in percent -----------------------
 					var  td = row.insertCell(-1);
-					td.appendChild(document.createTextNode(rows[i].votes_with_party_pct));
+					td.appendChild(document.createTextNode(rows[i].votes_with_party_pct + "%"));
 					
 					//----------------------- link to homepage ----------------------------
 
