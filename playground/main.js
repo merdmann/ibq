@@ -37,12 +37,9 @@ document.addEventListener('DOMContentLoaded',function() {
 					td.appendChild(a);
 
 				    tab.appendChild(tr);
-                } /* end for */ 			function submit() {
-				console.log("Submit....");
+                } 
 			}
-            }; /* end toTable */			function submit() {
-				console.log("Submit....");
-			}
+         
 
             toTable( results.results[0].members );
 			console.log("Test");
@@ -50,12 +47,26 @@ document.addEventListener('DOMContentLoaded',function() {
             // SUBMIT BUTTON PRESSED
 			var submit = document.getElementById("btn-submit");
 			submit.addEventListener('click', function (){ 
+                console.log("submit pressed");
 				var inputs = document.getElementsByTagName("input");
                 var party = inputs[0].checked ? "D" : "";
                     party = inputs[1].checked ? "R" : "";
-                    party = inputs[2].checked ? "I" : "";
+					party = inputs[2].checked ? "I" : "";
+					     
+                console.log("filter :" + party);
                 
-				console.log(party);
+                // clear the screen and redraw all              
+                document.getElementById("root").remove();
+                
+                var tab = document.getElementById("data-table");
+                var tbody = document.createElement("tbody")
+                tbody.id = "root";
+                tab.appendChild( tbody );
+            
+                console.log("redrawing");
+                toTable( results.results[0].members ); 
 			});
+    
+        
 
 });
