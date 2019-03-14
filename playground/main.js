@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log("DOM Tree loaded");
 
+    function createFilter() {
+        var inputs = document.getElementsByTagName("input");
+        var party = inputs[0].checked ? function (party) { return party == "D"} : function(party) {return true;}
+            party = inputs[1].checked ? function (party) { return party == "R"} : party;
+            party = inputs[2].checked ? function (party) { return party == " "} : party;
+        return party;
+    }
     // Display the result object in one table
     //------------------------------------------------------------------
     function toTable(rows, filter) {
@@ -41,29 +48,16 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    toTable(results.results[0].members, function(data) { return true });
+    toTable(results.results[0].members, createFilter());
     console.log("Test");
 
     // SUBMIT BUTTON PRESSED
     var submit = document.getElementById("btn-submit");
     submit.addEventListener('click', function () {
         console.log("submit pressed");
-        var inputs = document.getElementsByTagName("input");
-        var party = inputs[0].checked ? function (party) {
-            return party == "D"
-        } : null;
-        party = inputs[1].checked ? function (party) {
-            return party == "R"
-        } : party;
-        party = inputs[2].checked ? function (party) {
-            return party == " "
-        } : party;
-
-        console.log("filter :" + party);
-
+ 
         // clear the screen and redraw all              
         document.getElementById("root").remove();
-
 
         // undo the remove
         var tab = document.getElementById("data-table");
@@ -72,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
         tab.appendChild(tbody);
 
         console.log("redrawing");
-        toTable(results.results[0].members, party);
+        toTable(results.results[0].members, createFilter());
     });
 
 
