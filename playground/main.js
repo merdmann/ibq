@@ -8,16 +8,19 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("Apply all filters");
     console.log(filters);
 
-//    for (var i = 0; ++i; i < filters.length) {
-      result = result & filters[0](item);
-//    }
-    return result
+    for (i=0; i < filters.length;++i) {
+      console.log(i);
+      result = result & filters[i](item);
+    }
+      return result
   }
 
   function createFilter ( ) {
     var filters = [];
 
     console.log("createFilter");
+
+    var state = getState();
     
     var inputs = document.getElementsByTagName('input')
     var party = inputs[0].checked ? function (item) { return item.party == 'D' } : function (item) { return true };
@@ -47,11 +50,12 @@ document.addEventListener('DOMContentLoaded', function () {
     select.appendChild(option)
   }
 
-  function getState () {
-    select = document.getElementById('states')
-    var opt = document.getElementsByTagName('opion')
+  function getState (list) {
+    var option = document.getElementsByTagName('option');
+    var states = [];
 
-    console.log(opt)
+    var select = document.getElementById('states')
+    return option[select.selectedIndex].value;
   }
 
   // Display the result object in one table
@@ -67,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var row = tab.insertRow(-1)
         if(!listOfStates.includes(rows[i].state))
           listOfStates.push(rows[i].state)
+          
         var td = row.insertCell(0)
         td.appendChild(document.createTextNode(members++))
 
@@ -100,10 +105,11 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
     createStatesSelector(listOfStates)
+    getState(listOfStates);
   }
 
   toTable(results.results[0].members, createFilter())
-  console.log(filters)
+
 
   // SUBMIT BUTTON PRESSED
   var submit = document.getElementById('btn-submit')
@@ -122,4 +128,12 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('redrawing')
     toTable(results.results[0].members, createFilter())
   })
+
+  var states = document.getElementById('states');
+  states.addEventListener('change', function () {
+    getState();
+ 
+    console.log("on change");
+  })
+
 })
