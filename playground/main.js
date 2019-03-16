@@ -1,35 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOM Tree loaded');
 
+  var  DFilter = function (item) { return item.party == 'D'};
+  var  RFilter = function (item) { return item.party == 'R'};
+  var  IFilete = function (item) { return item.party == 'R'};
+  var  Default = function (item) { return true };
+
   // execute the given filters.
   function applyFilters (item, filters) {
     var result = true;
     
     console.log("Apply all filters");
-    console.log(filters);
 
     for (i=0; i < filters.length;++i) {
-      console.log(i);
       result = result & filters[i](item);
     }
-      return result
+    return result
   }
 
-  function createFilter ( ) {
+  function addFilter (aFilter) {
     var filters = [];
 
-    console.log("createFilter");
+    filters.push(aFilter);
 
-    var state = getState();
-    
-    var inputs = document.getElementsByTagName('input')
-    var party = inputs[0].checked ? function (item) { return item.party == 'D' } : function (item) { return true };
-        party = inputs[1].checked ? function (item) { return item.party == 'R'} : party;
-        party = inputs[2].checked ? function (item) { return item.party == 'I'} : party;
-
-    filters.push(party);
-
-    console.log(filters);
     return filters;
   }
 
@@ -50,13 +43,16 @@ document.addEventListener('DOMContentLoaded', function () {
     select.appendChild(option)
   }
 
-  function getState (list) {
+/*  function getState (list) {
     var option = document.getElementsByTagName('option');
+  
     var states = [];
 
     var select = document.getElementById('states')
-    return option[select.selectedIndex].value;
+    return option[select.selectedIndex].value; 
+
   }
+  */
 
   // Display the result object in one table
   // ------------------------------------------------------------------
@@ -105,30 +101,33 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
     createStatesSelector(listOfStates)
-    getState(listOfStates);
+    //getState(listOfStates);
   }
 
-  toTable(results.results[0].members, createFilter())
+  toTable(results.results[0].members, addFilter( Default ))
 
 
-  // SUBMIT BUTTON PRESSED
-  var submit = document.getElementById('btn-submit')
-  submit.addEventListener('click', function () {
-    console.log('submit pressed')
+  var input = document.getElementsByTagName("input");
+  input[0].addEventListener('change', function() {
+    var filters = [];
+    if (input[0].checked){
+      filters = addFilter( DFilter)
+    } 
 
-    // clear the screen and redraw all
-    document.getElementById('root').remove()
+  // clear the screen and redraw all
+     document.getElementById('root').remove()
 
-    // undo the remove
+
     var tab = document.getElementById('data-table')
     var tbody = document.createElement('tbody')
-    tbody.id = 'root'
-    tab.appendChild(tbody)
+     tbody.id = 'root'
+ 
 
-    console.log('redrawing')
-    toTable(results.results[0].members, createFilter())
+    toTable(results.results[0].members, filters )
   })
-
+  input[1].addEventListener('change', function() {})
+  input[2].addEventListener('change', function() {})
+  // something has changed in the state selection
   var states = document.getElementById('states');
   states.addEventListener('change', function () {
     getState();
