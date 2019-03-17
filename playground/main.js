@@ -9,19 +9,34 @@ document.addEventListener('DOMContentLoaded', function () {
   // execute the given filters.
   function applyFilters (item, filters) {
     var result = true;
-    
-    console.log("Apply all filters");
-
+  
     for (i=0; i < filters.length;++i) {
       result = result & filters[i](item);
     }
+
+    console.log( "appl_all_fiters: " + filters.length + ",result: " + result );
     return result
+  }
+
+
+  function cretaFilter() {
+    var input = document.getElementsByTagName("input")
+
+    if( input[0].checked )
+      addFilter(DFilter);
+   if( input[1].checked )
+      addFilter(RFilter)
+   if( input[2].checked )
+      addFilter(IFilter);
+      
+   return
   }
 
   function addFilter (aFilter) {
     var filters = [];
 
     filters.push(aFilter);
+    console.log("addFilter ", filters.length);
 
     return filters;
   }
@@ -58,8 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // ------------------------------------------------------------------
   function toTable (rows, filters) {
     var listOfStates = []
-    var tab = document.getElementById('root')
-    tab.setAttribute('class', 'table table-striped')
+    var tab = document.getElementById('root');
     var members = 0;
 
     for (var i = 0; i < rows.length; ++i) {
@@ -121,12 +135,46 @@ document.addEventListener('DOMContentLoaded', function () {
     var tab = document.getElementById('data-table')
     var tbody = document.createElement('tbody')
      tbody.id = 'root'
- 
+     tbody.setAttribute("class","table table-striped");
 
     toTable(results.results[0].members, filters )
   })
-  input[1].addEventListener('change', function() {})
-  input[2].addEventListener('change', function() {})
+  input[1].addEventListener('change', function() {
+    var filters = [];
+    if (input[0].checked){
+      filters = addFilter( RFilter)
+    } 
+
+  // clear the screen and redraw all
+     document.getElementById('root').remove()
+
+
+    var tab = document.getElementById('data-table')
+    var tbody = document.createElement('tbody')
+    tbody.id = 'root'
+    tbody.setAttribute("class","table table-striped");
+    tab.appendChild(tbody);
+
+    toTable(results.results[0].members, filters )
+  })
+  input[2].addEventListener('change', function() {
+    var filters = [];
+    if (input[0].checked){
+      filters = addFilter( IFilter )
+    } 
+
+    // clear the screen and redraw all
+    document.getElementById('root').remove();
+
+    var tab = document.getElementById('data-table')
+    var tbody = document.createElement('tbody')
+    tbody.id = 'root'
+    tab.appendChild(tbody);
+    tbody.setAttribute("class","table table-striped");
+    toTable(results.results[0].members, filters )
+  })
+
+
   // something has changed in the state selection
   var states = document.getElementById('states');
   states.addEventListener('change', function () {
