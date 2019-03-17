@@ -1,21 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM Tree loaded');
 
-    var DFilter = function (item) {
-        return item.party == 'D'
-    };
-    var RFilter = function (item) {
-        return item.party == 'R'
-    };
-    var IFilter= function (item) {
-        return item.party == 'I'
-    };
-    var Default = function (item) {
-        return true
-    };
+    var DFilter = function (item) { return item.party == 'D' };
+    var RFilter = function (item) { return item.party == 'R' };
+    var IFilter= function (item) { return item.party == 'I'};
+    var Default = function (item) { return true };
+    
+    var filters =[];
 
     // execute the given filters.
-    function applyFilters(item, filters) {
+    function applyFilters(item) {
         var result = true;
 
         for (i = 0; i < filters.length; ++i) {
@@ -27,28 +21,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    function cretaFilter() {
-        var input = document.getElementsByTagName("input")
+    function addFilter(aFilter, condition) {
+        condition.push(aFilter);
+        console.log("addFilter elements: ", condition.length);
 
-        if (input[0].checked)
-            addFilter(DFilter);
-        if (input[1].checked)
-            addFilter(RFilter)
-        if (input[2].checked)
-            addFilter(IFilter);
-
-        return
+        return condition;
     }
 
-    function addFilter(aFilter) {
-        var filters = [];
-
-        filters.push(aFilter);
-        console.log("addFilter ", filters.length);
-
-        return filters;
-    }
-
+    //-------------- stuff needed for the state filter ------
     function createStatesSelector(list) {
         var result = list.sort()
 
@@ -66,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
         select.appendChild(option)
     }
 
+    // -------------- get the currently selected value ---------------
     function getState (list) {
         var option = document.getElementsByTagName('option');
         var select = document.getElementById('states');
@@ -80,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var listOfStates = []
         var tab = document.getElementById('root');
         var members = 0;
+        filters = [];
 
         for (var i = 0; i < rows.length; ++i) {
             if (applyFilters(rows[i], filters)) {
@@ -126,10 +108,10 @@ document.addEventListener('DOMContentLoaded', function () {
         //getState(listOfStates);
     }
 
-    toTable(results.results[0].members, addFilter(Default))
+    toTable(results.results[0].members, addFilter(Default,filters) )
 
     
-    function redraw(filters) {
+    function redraw(filter, filters) {
         // clear the screen and redraw all
         document.getElementById('root').remove();
 
@@ -145,46 +127,29 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- democorates
     var input = document.getElementsByTagName("input");
     input[0].addEventListener('change', function () {
-        if (input[0].checked) {
-            filters = addFilter(DFilter)
+        if( input[0].checked) {
+            filters = [];
+            
+            addFilter( DFilter, filters );
         }
-
-        // clear the screen and redraw all
-        document.getElementById('root').remove()
-
-
-        var tab = document.getElementById('data-table')
-        var tbody = document.createElement('tbody')
-        tbody.id = 'root'
-        tbody.setAttribute("class", "table table-striped");
-        tab.appendChild(tbody);
-
-        toTable(results.results[0].members, filters)
+        redraw(filters);
     })
     input[1].addEventListener('change', function () {
-        if (input[1].checked) {
-            filters = addFilter(RFilter)
+        if( input[1].checked) {
+            filters = [];
+            
+            addFilter( RFilter, filters );
         }
-
-        // clear the screen and redraw all
-        document.getElementById('root').remove()
-
-        var tab = document.getElementById('data-table')
-        var tbody = document.createElement('tbody')
-        tbody.id = 'root'
-        tbody.setAttribute("class", "table table-striped");
-        tab.appendChild(tbody);
-
-        toTable(results.results[0].members, filters)
+        redraw( filters );
     })
     input[2].addEventListener('change', function () {
-        var filters = [];
-        if (input[2].checked) {
-//            filters = addFilter(IFilter);
-            console.log("IFilter set");
+      
+        if( input[2].checked) {
+            filters = [];
+            
+            addFilter( IFilter, filters );
         }
-
-        redraw( addFilter(IFilter));
+        redraw( filters);
     })
 
 
@@ -192,22 +157,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var states = document.getElementById('states');
     states.addEventListener('change', function () {
         var state = getState();
-        var CAFilter = function (item) {  return item.state == state  }
-        
-        //addFilter( CAFilter );
+        var CAFilter = function (item) {  return item.state == state;  };
         
         console.log("on change state=" + state);
-        
-                // clear the screen and redraw all
-        document.getElementById('root').remove()
-
-        var tab = document.getElementById('data-table')
-        var tbody = document.createElement('tbody')
-        tbody.id = 'root'
-        tbody.setAttribute("class", "table table-striped");
-        tab.appendChild(tbody);
-
-        toTable(results.results[0].members, addFilter(CAFilter))
+        redraw(addFilter(CAFilter, filters ));
     })
 
 })
