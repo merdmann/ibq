@@ -54,16 +54,42 @@ document.addEventListener('DOMContentLoaded', function () {
       return option[select.selectedIndex].value; 
   }
   
-
+  // the number of Democrats, Republicans and Independents
+  // how Democrats and Republicans compare, on average, for voting with their party
+  // which members most often do not vote with their party, which ones most often do vote with their party
+  // which members have missed the most votes, which have missed the least
   // Display the result object in one table
+
   // ------------------------------------------------------------------
   function toTable(rows, filters) {
       var listOfStates = []
       var tab = document.getElementById('root');
       var members = 0;
+      var democrates = 0;
+      var reps = 0; 
+      var independents
       filters = [];
-
+      // setup the initial data for the statics
+      var votes_with = {'D' : 0.0, 'R': 0.0, 'I': 0.0 };
+      var worst_voter = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
+      var worst_voter_name = {'D': "", 'R': "", I: "" };
+      var most_missed_votes = {'D':0.0, 'R':0.0, 'I':0.0 }
+      var missed_votes = {'D' : 0.0, 'R': 0.0, 'I': 0.0 };
+    
       for (var i = 0; i < rows.length; ++i) {
+          var data = rows[i];
+
+          votes_with[data.party] += data.votes_with_party_pct;
+          reps += data.party== 'D' ? 1 : 0 
+          democrates += data.party == 'D' ? 1 : 0;
+          independents +=  data.party == 'I' ? 1 : 0;
+ 
+          if( data.missed_votes  > most_missed_votes[ data.party ] ) { 
+                console.log( most_missed_votes )
+                most_missed_votes[ data.party ] = data.missed_votes;
+                worst_voter_name[ data.party ] = data.last_name;
+          }
+
           if (applyFilters(rows[i], filters)) {
               var row = tab.insertRow(-1)
               var td = row.insertCell(0)
@@ -97,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function () {
                   listOfStates.push(rows[i].state)
               // ----------------------- link to homepage ----------------------------
               
-
               var td = row.insertCell(-1)
               var a = document.createElement('a')
               a.href = rows[i].url
@@ -110,6 +135,16 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       createStatesSelector(listOfStates)
       //getState(listOfStates);
+
+      div = document.getElementById("display-stats");
+
+
+      var resutlt1 = document.getElementById("result1");
+      var text = document.createTextNode( worst_voter['D'] + worst_voter_name['D'] )
+      result1.appendChild(text);
+
+      console.log(worst_voter)
+      
   }
 
   toTable(results.results[0].members, addFilter(Default,filters) )
