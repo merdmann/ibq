@@ -1,17 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM Tree loaded');
 
-    var DFilter = function (item) {
-        return item.party == 'D'
+    const DFilter = function (item) {
+        return item.party === 'D';
     };
-    var RFilter = function (item) {
-        return item.party == 'R'
+    const RFilter = function (item) {
+        return item.party === 'R';
     };
-    var IFilter = function (item) {
-        return item.party == 'I'
+    const IFilter = function (item) {
+        return item.party === 'I';
     };
-    var Default = function (item) {
-        return true
+    const Default = function (item) {
+        return true;
     };
 
     var filters = [];
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function place_result(aString, aField) {
-        var resutlt = document.getElementById(aField);
+        var result = document.getElementById(aField);
         
         var text = document.createTextNode(aString);
         result.appendChild(text);
