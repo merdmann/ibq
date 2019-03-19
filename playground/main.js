@@ -71,11 +71,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-// the number of Democrats, Republicans and Independents
-// how Democrats and Republicans compare, on average, for voting with their party
-// which members most often do not vote with their party, which ones most often do vote with their party
-// which members have missed the most votes, which have missed the least
-// Display the result object in one table
+// R.1 )the number of Democrats, Republicans and Independents
+// R.2 how Democrats and Republicans compare, on average, for voting with their party
+// R.3 which members most often do not vote with their party, which ones most often do vote with their party
+// R.4 which members have missed the most votes, which have missed the least
+// R.4 Display the result object in one table
 
 // ------------------------------------------------------------------
 function toTable(rows, filters) {
@@ -87,31 +87,52 @@ function toTable(rows, filters) {
     var independents = 0;
     var filters = [];
     // setup the initial data for the statics aspects
-    var votes_with = { 'D': 0.0,'R': 0.0, 'I': 0.0};
-    var worst_voter_name = {'D': "",  'R': "",'I': "" };
+    // R.2 
+    var votes_with       = {'D': 0.0,'R': 0.0, 'I': 0.0};
+    var worst_voter_name = {'D': "", 'R': "",'I': "" };
     var max_missed_votes = {'D': 0.0,'R': 0.0,'I': 0.0 };
-    var missed_votes = { 'D': 0.0, 'R': 0.0, 'I': 0.0 };
+    var nbrOfMembers     = {'D': 0.0,'R':0.0,'I':0.0 };
+    var missed_votes     = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
+    var min_with_votes   = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
+    var bad_voter        = {'D': "",  'R': "",'I': "" }; // who isvoing in most of the cases against his party
+    var max_missed_name  = {'D': "",  'R': "",'I': "" }; 
 
     for (var i = 0; i < rows.length; ++i) {
         var data = rows[i];
 
         votes_with[data.party] += data.votes_with_party_pct;
-        reps += data.party == 'D' ? 1 : 0
-        democrates += data.party == 'D' ? 1 : 0;
-        independents += data.party == 'I' ? 1 : 0;
 
+        nbrOfMembers[ data.party ] +=1; // R.2
+        console.log( nbrOfMembers);
+
+        // calculate a valid name string
+        var name = data.first_name + ' ' + (data.middle_name === null ? ' ' :data.middle_name) + ' ' + data.last_name;
+
+        // Req. R.4
         if (data.missed_votes > max_missed_votes[data.party]) {
-            console.log(max_missed_votes);
             max_missed_votes[data.party] = data.missed_votes;
-            worst_voter_name[data.party] = data.last_name;
+            worst_voter_name[data.party] = name;
         }
+
+        if( data.votes_with_party_pct > min_with_votes[ data.party ] ) {
+            min_with_votes[ data.party ];
+            bad_voter[ data.party ] = name;
+        }
+
+        if( data.missed_votes > max_missed_votes[ data.party ]) {
+            max_missed_votes[ data.party ] = data.missed_votes;
+            max_missed_name[ data.party ] = name;
+        }
+
+
+
 
         if (applyFilters(rows[i], filters)) {
             var row = tab.insertRow(-1)
             var td = row.insertCell(0)
             td.appendChild(document.createTextNode(members++))
 
-            // storing the state before the filterss are applied.
+            // storing the state before the filterss are applied only for alues we havnt seen before
             if (!listOfStates.includes(rows[i].state))
                 listOfStates.push(rows[i].state)
 
@@ -150,14 +171,27 @@ function toTable(rows, filters) {
         }
     }
     createStatesSelector(listOfStates)
-    //getState(listOfStates);
+   
+    console.log( nbrOfMembers );
 
-    div = document.getElementById("display-stats");
+    place_result(nbrOfMembers['D'], "result01" );
+    place_result(nbrOfMembers['R'], "result02" );
+    place_result(nbrOfMembers['I'], "result03" );
 
-
-    place_result(" missed: " + max_missed_votes['D'] + " " + worst_voter_name['D'], "result1");
-    place_result("missed: " + max_missed_votes['R'] + " " + worst_voter_name['R'], "result2")
+    place_result( worst_voter_name['D'] + " with " + max_missed_votes['D'], "result1");
+    place_result( worst_voter_name['R'] + " with " + max_missed_votes['R'], "result2");
+    place_result( worst_voter_name['I'] + " with " + max_missed_votes['I'], "result3");
     
+    place_result(bad_voter['D'], "result11");
+    place_result(bad_voter['R'], "result12");
+    place_result(bad_voter['I'], "result13");
+
+    console.log( max_missed_name);
+
+    place_result(max_missed_name['D'], "result21");
+    place_result(max_missed_name['R'], "result22");
+    place_result(max_missed_name['I'], "result23");
+
 }
 
 toTable(results.results[0].members, addFilter(Default, filters))
