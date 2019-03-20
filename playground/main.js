@@ -196,7 +196,7 @@ function toTable(rows, filters) {
     leastEngaged('LeastEngaged', rows.slice(5) ); 
     mostEngaged('MostEngaged', rows.slice( rows.length-5, rows.length));
     leastLoyal('LeastLoyal', rows.slice(5))
-    mostLoyal('MostLoyal'. rows.slice( rows.length-5, rows.length))    
+    mostLoyal('MostLoyal', rows.slice( rows.length-5, rows.length))    
 };
 
 toTable(results.results[0].members, addFilter(Default, filters))
