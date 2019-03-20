@@ -1,3 +1,5 @@
+"use strict";
+
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM Tree loaded');
 
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function applyFilters(item) {
         var result = true;
 
-        for (i = 0; i < filters.length; ++i) {
+        for (var i = 0; i < filters.length; ++i) {
             result = result & filters[i](item);
         }
 
@@ -96,10 +98,9 @@ function toTable(rows, filters) {
     var min_with_votes   = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
     var bad_voter        = {'D': "",  'R': "",'I': "" }; // who isvoing in most of the cases against his party
     var max_missed_name  = {'D': "",  'R': "",'I': "" }; 
+    var attendance_by_name = [];
 
-    for (var i = 0; i < rows.length; ++i) {
-        var data = rows[i];
-
+    rows.forEach( function (data) {
         votes_with[data.party] += data.votes_with_party_pct;
 
         nbrOfMembers[ data.party ] +=1; // R.2
@@ -123,53 +124,53 @@ function toTable(rows, filters) {
             max_missed_votes[ data.party ] = data.missed_votes;
             max_missed_name[ data.party ] = name;
         }
+    
+        attendance_by_name[name] = data.total_present;    
+        
 
-
-
-
-        if (applyFilters(rows[i], filters)) {
+        if (applyFilters(data, filters)) {
             var row = tab.insertRow(-1)
             var td = row.insertCell(0)
             td.appendChild(document.createTextNode(members++))
 
             // storing the state before the filterss are applied only for alues we havnt seen before
-            if (!listOfStates.includes(rows[i].state))
-                listOfStates.push(rows[i].state)
+            if (!listOfStates.includes(data.state))
+                listOfStates.push(data.state)
 
             // ---------------------- col 1: first_name ---------------------------
             var td = row.insertCell(-1)
 
-            // calculate a valid name string
-            var name = rows[i].first_name + ' ' + (rows[i].middle_name === null ? ' ' : rows[i].middle_name) + ' ' + rows[i].last_name;
-
             td.appendChild(document.createTextNode(name))
             // ----------------------col 4: party ----------------------------------
             var td = row.insertCell(-1)
-            td.appendChild(document.createTextNode(rows[i].party))
+            td.appendChild(document.createTextNode(data.party))
 
             // ----------------------col 5: votes in percent -----------------------
             var td = row.insertCell(-1)
-            td.appendChild(document.createTextNode(rows[i].votes_with_party_pct + '%'))
+            td.appendChild(document.createTextNode(data.votes_with_party_pct + '%'))
 
             // -----------------------col 6: state ----------------------------------
 
             var td = row.insertCell(-1);
-            td.appendChild(document.createTextNode(rows[i].state));
+            td.appendChild(document.createTextNode(data.state));
 
-            if (!listOfStates.includes(rows[i].state))
-                listOfStates.push(rows[i].state)
+            if(!listOfStates.includes(data.state))
+                listOfStates.push(data.state)
             // ----------------------- link to homepage ----------------------------
 
             var td = row.insertCell(-1)
             var a = document.createElement('a')
-            a.href = rows[i].url
+            a.href = data.url
             a.title = 'some link to ' + name + ' page'
-            a.innerHTML = rows[i].url
-            td.appendChild(a)
+            a.innerHTML = data.url;
+            td.appendChild(a);
 
-            tab.appendChild(row)
+            tab.appendChild(row);
         }
-    }
+        
+        attendance_by_name[name] = data.total_present;
+    })
+        
     createStatesSelector(listOfStates)
    
     console.log( nbrOfMembers );
@@ -191,8 +192,10 @@ function toTable(rows, filters) {
     place_result(max_missed_name['D'], "result21");
     place_result(max_missed_name['R'], "result22");
     place_result(max_missed_name['I'], "result23");
-
-}
+        
+    attendance_by_name.sort(function(a, b){return b - a});
+    console.log(attendance_by_name);
+};
 
 toTable(results.results[0].members, addFilter(Default, filters))
 
