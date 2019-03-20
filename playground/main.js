@@ -98,14 +98,16 @@ function toTable(rows, filters) {
     var min_with_votes   = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
     var bad_voter        = {'D': "",  'R': "",  'I': "" }; // who is voting in most of the cases against his party
     var max_missed_name  = {'D': "",  'R': "",  'I': "" }; 
-    var smapled = 0;
+    var sampled = 0;
   
-    rows.sort(function(a,b) {return (a.total_present > b.total_present) ? 1 : ((b.total_present> a.total_present) ? -1:0)}).forEach( function (data) {
+    const on_missed_votes = function(a,b) { return a.missed_votes - b.missed_votes};
+
+    rows.sort( on_missed_votes ).forEach( function(data) {
         votes_with[data.party] += data.votes_with_party_pct; // not used
 
         var snapshot = [];
 
-        if( ++smapled < 10)
+        if( ++sampled < 10)
             snapshot.push( data );
 
 
@@ -135,7 +137,6 @@ function toTable(rows, filters) {
     
         // attendance_by_name[name] = data.total_present;    
         
-
         if (applyFilters(data, filters)) {
             var row = tab.insertRow(-1)
             var td = row.insertCell(0)
@@ -269,9 +270,18 @@ function onglance( root, tab ) {
         var tr = tbdy.insertRow(-1)
         var td = tr.insertCell(0)
 
-        var cellData = document.createTextNode(item);
-        td.appendChild( cellData )
+        // name 
+        console.log(item.last_name);
+        td.appendChild(document.createTextNode(item.last_name));
+        
+        // missed votes
+        td = tr.insertCell(-1)
+        td.appendChild(document.createTextNode(item.missed_votes ))
             
+        // missed votes in %
+        td = tr.insertCell(-1)
+        td.appendChild(document.createTextNode( (100 * item.missed_votes / item.total_votes).toFixed(2)));
+
         tbdy.appendChild(tr);
     });// end for each
 }
