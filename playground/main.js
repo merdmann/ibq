@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             option.value = result[i]
             option.text = result[i]
-            console.log(result[i])
+            // console.log(result[i])
             select.appendChild(option)
         }
 
@@ -98,13 +98,21 @@ function toTable(rows, filters) {
     var min_with_votes   = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
     var bad_voter        = {'D': "",  'R': "",  'I': "" }; // who is voting in most of the cases against his party
     var max_missed_name  = {'D': "",  'R': "",  'I': "" }; 
-    var attendance_by_name = [];
+    var smapled = 0;
+  
+    rows.sort(function(a,b) {return (a.total_present > b.total_present) ? 1 : ((b.total_present> a.total_present) ? -1:0)}).forEach( function (data) {
+        votes_with[data.party] += data.votes_with_party_pct; // not used
 
-    rows.forEach( function (data) {
-        votes_with[data.party] += data.votes_with_party_pct;
+        var snapshot = [];
+
+        if( ++smapled < 10)
+            snapshot.push( data );
+
+
+
+        console.log( data );
 
         nbrOfMembers[ data.party ] +=1; // R.2
-        console.log( nbrOfMembers);
 
         // calculate a valid name string
         var name = data.first_name + ' ' + (data.middle_name === null ? ' ' :data.middle_name) + ' ' + data.last_name;
@@ -125,7 +133,7 @@ function toTable(rows, filters) {
             max_missed_name[ data.party ] = name;
         }
     
-        attendance_by_name[name] = data.total_present;    
+        // attendance_by_name[name] = data.total_present;    
         
 
         if (applyFilters(data, filters)) {
@@ -168,12 +176,12 @@ function toTable(rows, filters) {
             tab.appendChild(row);
         }
         
-        attendance_by_name[name] = data.total_present;
+        onglance( 'at_a_glance', snapshot );
     })
         
     createStatesSelector(listOfStates)
    
-    console.log( nbrOfMembers );
+ //   console.log( nbrOfMembers );
 
     place_result(nbrOfMembers['D'], "result01" );
     place_result(nbrOfMembers['R'], "result02" );
@@ -187,17 +195,11 @@ function toTable(rows, filters) {
     place_result(bad_voter['R'], "result12");
     place_result(bad_voter['I'], "result13");
 
-    console.log( max_missed_name);
+    //console.log( max_missed_name);
 
     place_result(max_missed_name['D'], "result21");
     place_result(max_missed_name['R'], "result22");
     place_result(max_missed_name['I'], "result23");
-        
-    attendance_by_name.sort(function(a, b){return b - a});
-    console.log(attendance_by_name);
-
-    onglance("at_a_glance", Array.from(attendance_by_name) )
-
 };
 
 toTable(results.results[0].members, addFilter(Default, filters))
@@ -217,7 +219,9 @@ function redraw(filter, filters) {
 }
 
 // --- democorates
-var input = document.getElementsByTagName("input"); input[0].addEventListener('change', function () {
+var input = document.getElementsByTagName("input"); 
+
+input[0].addEventListener('change', function () {
     if (input[0].checked) {
         filters = [];
 
@@ -260,12 +264,12 @@ var states = document.getElementById('states'); states.addEventListener('change'
 function onglance( root, tab ) { 
     console.log( "on glance called " + tab.length)
     tab.forEach( function (item) {
-        console.log(" item :" + item);
+        console.log(item);
         var tbdy= document.getElementById(root)
         var tr = tbdy.insertRow(-1)
         var td = tr.insertCell(0)
 
-        cellData = createTextNode(item);
+        var cellData = document.createTextNode(item);
         td.appendChild( cellData )
             
         tbdy.appendChild(tr);
