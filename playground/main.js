@@ -90,14 +90,14 @@ function toTable(rows, filters) {
     var filters = [];
     // setup the initial data for the statics aspects
     // R.2 
-    var votes_with       = {'D': 0.0,'R': 0.0, 'I': 0.0};
-    var worst_voter_name = {'D': "", 'R': "",'I': "" };
-    var max_missed_votes = {'D': 0.0,'R': 0.0,'I': 0.0 };
-    var nbrOfMembers     = {'D': 0.0,'R':0.0,'I':0.0 };
+    var votes_with       = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
+    var worst_voter_name = {'D': "",  'R': "",  'I': "" };
+    var max_missed_votes = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
+    var nbrOfMembers     = {'D': 0.0, 'R':0.0,  'I': 0.0 };
     var missed_votes     = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
     var min_with_votes   = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
-    var bad_voter        = {'D': "",  'R': "",'I': "" }; // who isvoing in most of the cases against his party
-    var max_missed_name  = {'D': "",  'R': "",'I': "" }; 
+    var bad_voter        = {'D': "",  'R': "",  'I': "" }; // who is voting in most of the cases against his party
+    var max_missed_name  = {'D': "",  'R': "",  'I': "" }; 
     var attendance_by_name = [];
 
     rows.forEach( function (data) {
@@ -116,7 +116,7 @@ function toTable(rows, filters) {
         }
 
         if( data.votes_with_party_pct > min_with_votes[ data.party ] ) {
-            min_with_votes[ data.party ];
+            min_with_votes[ data.party ] = data.votes_with_pct;
             bad_voter[ data.party ] = name;
         }
 
@@ -179,9 +179,9 @@ function toTable(rows, filters) {
     place_result(nbrOfMembers['R'], "result02" );
     place_result(nbrOfMembers['I'], "result03" );
 
-    place_result( worst_voter_name['D'] + " with " + max_missed_votes['D'], "result1");
-    place_result( worst_voter_name['R'] + " with " + max_missed_votes['R'], "result2");
-    place_result( worst_voter_name['I'] + " with " + max_missed_votes['I'], "result3");
+    place_result( worst_voter_name['D'] + " with " + max_missed_votes['D'] + " missed votes", "result1");
+    place_result( worst_voter_name['R'] + " with " + max_missed_votes['R'] + " missed votes", "result2");
+    place_result( worst_voter_name['I'] + " with " + max_missed_votes['I'] + " missed votes", "result3");
     
     place_result(bad_voter['D'], "result11");
     place_result(bad_voter['R'], "result12");
@@ -195,6 +195,9 @@ function toTable(rows, filters) {
         
     attendance_by_name.sort(function(a, b){return b - a});
     console.log(attendance_by_name);
+
+    onglance("at_a_glance", Array.from(attendance_by_name) )
+
 };
 
 toTable(results.results[0].members, addFilter(Default, filters))
@@ -241,7 +244,6 @@ input[2].addEventListener('change', function () {
     redraw(filters);
 })
 
-
 // something has changed in the state selection
 var states = document.getElementById('states'); states.addEventListener('change', function () {
     var state = getState();
@@ -253,4 +255,21 @@ var states = document.getElementById('states'); states.addEventListener('change'
     redraw(addFilter(CAFilter, filters));
 })
 
-})
+
+// this function will take a list of names sorted accoring to engagment of the person.
+function onglance( root, tab ) { 
+    console.log( "on glance called " + tab.length)
+    tab.forEach( function (item) {
+        console.log(" item :" + item);
+        var tbdy= document.getElementById(root)
+        var tr = tbdy.insertRow(-1)
+        var td = tr.insertCell(0)
+
+        cellData = createTextNode(item);
+        td.appendChild( cellData )
+            
+        tbdy.appendChild(tr);
+    });// end for each
+}
+
+}) // DOMContentLoaded handler
