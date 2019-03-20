@@ -105,13 +105,6 @@ function toTable(rows, filters) {
     rows.sort( on_missed_votes ).forEach( function(data) {
         votes_with[data.party] += data.votes_with_party_pct; // not used
 
-        var snapshot = [];
-
-        if( ++sampled < 10)
-            snapshot.push( data );
-
-
-
         console.log( data );
 
         nbrOfMembers[ data.party ] +=1; // R.2
@@ -176,8 +169,6 @@ function toTable(rows, filters) {
 
             tab.appendChild(row);
         }
-        
-        onglance( 'at_a_glance', snapshot );
     })
         
     createStatesSelector(listOfStates)
@@ -201,6 +192,11 @@ function toTable(rows, filters) {
     place_result(max_missed_name['D'], "result21");
     place_result(max_missed_name['R'], "result22");
     place_result(max_missed_name['I'], "result23");
+
+    leastEngaged('LeastEngaged', rows.slice(5) ); 
+    mostEngaged('MostEngaged', rows.slice( rows.length-5, rows.length));
+    leastLoyal('LeastLoyal', rows.slice(5))
+    mostLoyal('MostLoyal'. rows.slice( rows.length-5, rows.length))    
 };
 
 toTable(results.results[0].members, addFilter(Default, filters))
@@ -262,8 +258,74 @@ var states = document.getElementById('states'); states.addEventListener('change'
 
 
 // this function will take a list of names sorted accoring to engagment of the person.
-function onglance( root, tab ) { 
-    console.log( "on glance called " + tab.length)
+function leastEngaged( root, tab ) { 
+    tab.forEach( function (item) {
+        var tbdy= document.getElementById(root);
+        var tr = tbdy.insertRow(-1);
+        var td = tr.insertCell(0);
+
+        // name 
+        console.log(item.last_name);
+        td.appendChild(document.createTextNode(item.last_name));
+        
+        // missed votes
+        td = tr.insertCell(-1)
+        td.appendChild(document.createTextNode(item.missed_votes ))
+            
+        // missed votes in %
+        td = tr.insertCell(-1)
+        td.appendChild(document.createTextNode( (100 * item.missed_votes / item.total_votes).toFixed(2)));
+
+        tbdy.appendChild(tr);
+    });// end for each
+}
+
+function mostEngaged( root, tab ) { 
+    tab.forEach( function (item) {
+        console.log(item);
+        var tbdy= document.getElementById(root)
+        var tr = tbdy.insertRow(-1)
+        var td = tr.insertCell(0)
+
+        // name 
+        console.log(item.last_name);
+        td.appendChild(document.createTextNode(item.last_name));
+        
+        // missed votes
+        td = tr.insertCell(-1)
+        td.appendChild(document.createTextNode(item.missed_votes ))
+            
+        // missed votes in %
+        td = tr.insertCell(-1)
+        td.appendChild(document.createTextNode( (100 * item.missed_votes / item.total_votes).toFixed(2)));
+
+        tbdy.appendChild(tr);
+    });// end for each
+}
+
+function mostLoyal( root, tab ) { 
+    tab.forEach( function (item) {
+        var tbdy= document.getElementById(root)
+        var tr = tbdy.insertRow(-1)
+        var td = tr.insertCell(0)
+
+        // name 
+        console.log(item.last_name);
+        td.appendChild(document.createTextNode(item.last_name));
+        
+        // missed votes
+        td = tr.insertCell(-1)
+        td.appendChild(document.createTextNode(item.missed_votes ))
+            
+        // missed votes in %
+        td = tr.insertCell(-1)
+        td.appendChild(document.createTextNode( (100 * item.missed_votes / item.total_votes).toFixed(2)));
+
+        tbdy.appendChild(tr);
+    });// end for each
+}
+
+function leastLoyal( root, tab ) { 
     tab.forEach( function (item) {
         console.log(item);
         var tbdy= document.getElementById(root)
