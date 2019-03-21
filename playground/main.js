@@ -267,7 +267,7 @@ function leastEngaged( root, tab ) {
         // name 
         console.log(item.last_name);
         td.appendChild(document.createTextNode(item.last_name));
-        
+        //td.replaceWith(document.createTextNode(item.last_name));
         // missed votes
         td = tr.insertCell(-1)
         td.appendChild(document.createTextNode(item.missed_votes ))
