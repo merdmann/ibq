@@ -169,6 +169,10 @@ function toTable(rows, filters) {
 
             tab.appendChild(row);
         }
+       
+        leastEngaged( 'overview', rows.slice(5) ); 
+        mostEngaged( 'overview', rows.slice( rows.length-5, rows.length));
+        leastLoyal
     })
         
     createStatesSelector(listOfStates)
@@ -193,10 +197,10 @@ function toTable(rows, filters) {
     place_result(max_missed_name['R'], "result22");
     place_result(max_missed_name['I'], "result23");
 
-    leastEngaged('LeastEngaged', rows.slice(5) ); 
-    mostEngaged('MostEngaged', rows.slice( rows.length-5, rows.length));
-    leastLoyal('LeastLoyal', rows.slice(5))
-    mostLoyal('MostLoyal', rows.slice( rows.length-5, rows.length))    
+         
+    leastEngaged( 'overview', rows.slice(5) ); 
+    mostEngaged( 'overview', rows.slice( rows.length-5, rows.length));
+    
 };
 
 toTable(results.results[0].members, addFilter(Default, filters))
@@ -258,16 +262,19 @@ var states = document.getElementById('states'); states.addEventListener('change'
 
 
 // this function will take a list of names sorted accoring to engagment of the person.
-function leastEngaged( root, tab ) { 
+function leastEngaged( root, tab ) {
+    var tbdy= document.getElementById(root)
+    if(tbdy == null)
+        return;
+
     tab.forEach( function (item) {
-        var tbdy= document.getElementById(root);
-        var tr = tbdy.insertRow(-1);
-        var td = tr.insertCell(0);
+        var tr = tbdy.insertRow(-1)
+        var td = tr.insertCell(0)
 
         // name 
         console.log(item.last_name);
         td.appendChild(document.createTextNode(item.last_name));
-        //td.replaceWith(document.createTextNode(item.last_name));
+        
         // missed votes
         td = tr.insertCell(-1)
         td.appendChild(document.createTextNode(item.missed_votes ))
@@ -281,6 +288,10 @@ function leastEngaged( root, tab ) {
 }
 
 function mostEngaged( root, tab ) { 
+    var tbdy= document.getElementById(root)
+    if(tbdy == null)
+        return;
+
     tab.forEach( function (item) {
         console.log(item);
         var tbdy= document.getElementById(root)
@@ -304,7 +315,11 @@ function mostEngaged( root, tab ) {
 }
 
 function mostLoyal( root, tab ) { 
+    var tbdy= document.getElementById(root)
+    if(tbdy == null)
+        return;
     tab.forEach( function (item) {
+        console.log(item);
         var tbdy= document.getElementById(root)
         var tr = tbdy.insertRow(-1)
         var td = tr.insertCell(0)
@@ -326,6 +341,9 @@ function mostLoyal( root, tab ) {
 }
 
 function leastLoyal( root, tab ) { 
+    var tbdy= document.getElementById(root)
+    if(tbdy == null)
+        return;
     tab.forEach( function (item) {
         console.log(item);
         var tbdy= document.getElementById(root)
