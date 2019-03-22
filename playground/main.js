@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
             // console.log(result[i])
             select.appendChild(option)
         }
-
         select.appendChild(option)
     }
 
@@ -203,7 +202,9 @@ function toTable(rows, filters) {
     
 };
 
-toTable(results.results[0].members, addFilter(Default, filters))
+fetchData();
+
+//toTable(rows, addFilter(Default, filters))
 
 
 function redraw(filter, filters) {
@@ -216,7 +217,7 @@ function redraw(filter, filters) {
     tbody.id = 'root'
     tab.appendChild(tbody);
     tbody.setAttribute("class", "table table-striped");
-    toTable(results.results[0].members, filters)
+//    toTable(results.results[0].members, filters)
 }
 
 // --- democorates
@@ -365,5 +366,25 @@ function leastLoyal( root, tab ) {
         tbdy.appendChild(tr);
     });// end for each
 }
+//
+// see also https://projects.propublica.org/api-docs/congress-api/members/
+// 
+    function fetchData(congress) {
+        var url = "https://api.myjson.com/bins/1gqjt6"
+        console.log(url)
 
+        fetch(url, 
+            { headers: { 
+                "Content-Type": "application/json",
+                /* "X-API-Key": "wqmgqOHo1JMAkYIfh3sJr4FlUN3PCokyojEziJBK" */},
+                /* mode: "cors" */})
+            .then( function(response) { 
+                console.log( response )
+                return response.json();
+            }
+            ).then( function(myJson) {
+                console.log(myJson);
+                toTable( myJson.results[0].members, filters); 
+            }).catch(err => console.log(err));
+    }
 }) // DOMContentLoaded handler
