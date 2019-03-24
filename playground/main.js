@@ -63,13 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
         return option[select.selectedIndex].value;
     }
 
-
+    // Put result
     function place_result(aString, aField) {
         var result = document.getElementById(aField);
         
         var text = document.createTextNode(aString);
-        result.appendChild(text);
-    }
+        result.innerHTML = " "
+        result.appendChild( text, )    }
 
 
 // R.1 )the number of Democrats, Republicans and Independents
@@ -122,6 +122,11 @@ function toTable(rows, filters) {
             bad_voter[ data.party ] = name;
         }
 
+        var total_missed_votes
+        
+        total_votes += data.total_votes
+        
+        // who has the most missed votest
         if( data.missed_votes > max_missed_votes[ data.party ]) {
             max_missed_votes[ data.party ] = data.missed_votes;
             max_missed_name[ data.party ] = name;
@@ -228,6 +233,7 @@ input[0].addEventListener('change', function () {
         filters = [];
 
         addFilter(DFilter, filters);
+        fetchData();
     }
     redraw(filters);
 })
@@ -237,6 +243,7 @@ input[1].addEventListener('change', function () {
         filters = [];
 
         addFilter(RFilter, filters);
+        fetchDta();
     }
     redraw(filters);
 })
@@ -246,6 +253,7 @@ input[2].addEventListener('change', function () {
         filters = [];
 
         addFilter(IFilter, filters);
+        fetchData();
     }
     redraw(filters);
 })
@@ -257,6 +265,7 @@ var states = document.getElementById('states'); states.addEventListener('change'
         return item.state == state;
     };
 
+    fetchData();
     console.log("on change state=" + state);
     redraw(addFilter(CAFilter, filters));
 })
