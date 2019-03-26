@@ -97,11 +97,12 @@ function toTable(rows, filters) {
     var min_with_votes   = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
     var bad_voter        = {'D': "",  'R': "",  'I': "" }; // who is voting in most of the cases against his party
     var max_missed_name  = {'D': "",  'R': "",  'I': "" }; 
+    var total_votes      = 0;
     var sampled = 0;
   
-    const on_missed_votes = function(a,b) { return a.missed_votes - b.missed_votes};
+    const by_missed_votes = function(a,b) { return a.missed_votes - b.missed_votes};
 
-    rows.sort( on_missed_votes ).forEach( function(data) {
+    rows.sort( by_missed_votes ).forEach( function(data) {
         votes_with[data.party] += data.votes_with_party_pct; // not used
 
         console.log( data );
@@ -121,9 +122,7 @@ function toTable(rows, filters) {
             min_with_votes[ data.party ] = data.votes_with_pct;
             bad_voter[ data.party ] = name;
         }
-
-        var total_missed_votes
-        
+                
         total_votes += data.total_votes
         
         // who has the most missed votest
@@ -243,7 +242,7 @@ input[1].addEventListener('change', function () {
         filters = [];
 
         addFilter(RFilter, filters);
-        fetchDta();
+        //fetchDta();
     }
     redraw(filters);
 })
@@ -253,7 +252,7 @@ input[2].addEventListener('change', function () {
         filters = [];
 
         addFilter(IFilter, filters);
-        fetchData();
+        // fetchData();
     }
     redraw(filters);
 })
@@ -265,7 +264,7 @@ var states = document.getElementById('states'); states.addEventListener('change'
         return item.state == state;
     };
 
-    fetchData();
+    // fetchData();
     console.log("on change state=" + state);
     redraw(addFilter(CAFilter, filters));
 })

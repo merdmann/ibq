@@ -1,1 +1,1 @@
-nbrOfMembers
+total_votes
