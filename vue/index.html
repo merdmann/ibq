@@ -16,19 +16,22 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-    <div class="container">
         <div class="col-md-4">
-                <input type="checkbox" name="party" value="Democrat">Democrat
-                <input type="checkbox" name="party" value="Republican">Republican
-                <input type="checkbox" name="party" value="Independant">Independent
-
-                <select id="states">
-                </select>
-        </div> 
-    </div>
-
+                <input type="checkbox" id="democrate" value="Democrate" v-model="checkedParty">
+                <input type="checkbox" id="republican" value="Republican" v-model="checkedParty">
+                <input type="checkbox" id="independant" value="Independant" v-model="checkedParty">
+        </div>
+    
     <div id="app">
+        
+        <p> {{ checkedParty }}</p>
         <table>
+                <div class="container">
+            <select>
+                <option v-for="item in results">
+            </select>
+            </div>
+
             <thead class="thead-dark">
                 <th >Members</th>
                 <th >Name</th>
@@ -43,7 +46,7 @@
                 <td>{{properName(item)}}</td>
                 <td>{{item.party}} </td>
                 <td>{{item.votes_with_pct}}</td>
-                <td>{{item.state}}</td>
+                <td>{{saveState(item.state)}}</td>
                 <td>{{item.url}}</td>
             </tr>
             </tbody>
