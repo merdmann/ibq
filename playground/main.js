@@ -3,6 +3,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM Tree loaded');
 
+    fetchData()
+
     const DFilter = function (item) {
         return item.party === 'D';
     };
@@ -206,8 +208,7 @@ function toTable(rows, filters) {
     
 };
 
-fetchData();
-
+//fetchData();
 //toTable(rows, addFilter(Default, filters))
 
 
@@ -242,7 +243,7 @@ input[1].addEventListener('change', function () {
         filters = [];
 
         addFilter(RFilter, filters);
-        //fetchDta();
+        fetchDta();
     }
     redraw(filters);
 })
@@ -252,7 +253,7 @@ input[2].addEventListener('change', function () {
         filters = [];
 
         addFilter(IFilter, filters);
-        // fetchData();
+        fetchData();
     }
     redraw(filters);
 })
@@ -386,12 +387,14 @@ function leastLoyal( root, tab ) {
                 "Content-Type": "application/json",
                 /* "X-API-Key": "wqmgqOHo1JMAkYIfh3sJr4FlUN3PCokyojEziJBK" */},
                 /* mode: "cors" */})
-            .then( function(response) { 
+            .then( function(response) {
+                document.body.style.cursor = "wait"  
                 console.log( response )
                 return response.json();
             }
             ).then( function(myJson) {
                 console.log(myJson);
+                document.body.style.cursor = "auto"  
                 toTable( myJson.results[0].members, filters); 
             }).catch(err => console.log(err));
     }
