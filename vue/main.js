@@ -9,10 +9,16 @@ new Vue({
     data: {
         product: [],
         results: [],
-        state :  [],
-        chwckedParty : ""
+        states : [],
+        selectedParty : [], 
     },
     methods: {
+
+        dataChanged() {
+            // this tells, the selected  party has changed.
+            console.log("Data Changed****");
+        },
+
         fetchData(){
             var url = "https://api.myjson.com/bins/1gqjt6"
             console.log(url)
@@ -28,12 +34,13 @@ new Vue({
                 }
                 ).then( (myJson) => {
                     this.results = myJson.results[0].members;
-                    this.results.forEach( function(items) {
-                        if( this.state.includes(this.results.state)) { 
-                            this.state.push(this.results.state);
-                            console.log( this.state); 
-                        }
-                    })    
+                    this.results.forEach(item => {
+                          if( !this.states.includes(item.state) ) { 
+                              this.states.push(item.state);
+                          }
+                          
+                          console.log( this );
+                     })   
                 }).catch(function(err) { console.log(err)})
         },
         properName( data ) {
@@ -41,13 +48,6 @@ new Vue({
             var name = data.first_name + ' ' + (data.middle_name === null ? ' ' :data.middle_name) + ' ' + data.last_name;
             return name;
         },
-
-        saveState( aState) {
-            if( !this.state.includes(aState)) {
-                this.state.push(aState);
-            }
-            return aState;
-        }
     },
     mounted: function () {
         console.log("***mounted****")
@@ -55,6 +55,7 @@ new Vue({
       // Code that will run only after the
       // entire view has been rendered
     },
+
     filters: {
         capitalize: function (value) {
           if (!value) return ''
@@ -63,6 +64,8 @@ new Vue({
         }
       }
 })
+
+
 
 function fetchData(congress) {
     var url = "https://api.myjson.com/bins/1gqjt6"

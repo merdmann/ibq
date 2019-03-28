@@ -16,22 +16,31 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div class="col-md-4">
-                <input type="checkbox" id="democrate" value="Democrate" v-model="checkedParty">
-                <input type="checkbox" id="republican" value="Republican" v-model="checkedParty">
-                <input type="checkbox" id="independant" value="Independant" v-model="checkedParty">
-        </div>
     
     <div id="app">
-        
-        <p> {{ checkedParty }}</p>
-        <table>
-                <div class="container">
-            <select>
-                <option v-for="item in results">
-            </select>
-            </div>
+            <div class="container">
+                    <div class="col-md-4">
+                    
+                            <input type="checkbox" id="democrat" value="D" v-model="selectedParty" v-on:change="dataChanged">
+                            <label for="democrat">democrat</label>
+                            <input type="checkbox" id="republican" value="R" v-model="selectedParty">
+                            <label for="republican">republican</label>
+                            <input type="checkbox" id="independant" value="I" v-model="selectedParty">
+                            <label for="independant">imdepend </label>
+                            <br>
+                            <span>selectedParty: {{ selectedParty }}</span>
+                        
 
+
+                            <select id="states" v-model="states">
+                                <option v-for="state in states" :value="state">
+                                    {{state}}
+                                </option>
+                            </select>
+                    </div> 
+                </div>
+        <p> {{ states }}</p>
+        <table>
             <thead class="thead-dark">
                 <th >Members</th>
                 <th >Name</th>
@@ -46,14 +55,12 @@
                 <td>{{properName(item)}}</td>
                 <td>{{item.party}} </td>
                 <td>{{item.votes_with_pct}}</td>
-                <td>{{saveState(item.state)}}</td>
+                <td>{{item.state}}</td>
                 <td>{{item.url}}</td>
             </tr>
             </tbody>
         </table>
     </div>
-
-
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
