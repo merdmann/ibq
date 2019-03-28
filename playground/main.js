@@ -385,7 +385,7 @@ function leastLoyal( root, tab ) {
 // 
     function fetchData(house) {
         var url = connectionUrl( house );
-        console.log(url)
+        console.log('connectionUrl = ' + url );
 
         fetch(url, 
             { headers: { 
