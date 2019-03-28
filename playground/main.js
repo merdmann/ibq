@@ -3,7 +3,12 @@
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM Tree loaded');
 
-    fetchData()
+    function connectionUrl( house ) {
+        return house ? "https://api.myjson.com/bins/16obo" : "https://api.myjson.com/bins/1gqjt6;"
+    }
+    
+
+    fetchData()   // if the page has been rendered we get the 
 
     const DFilter = function (item) {
         return item.party === 'D';
@@ -378,8 +383,8 @@ function leastLoyal( root, tab ) {
 //
 // see also https://projects.propublica.org/api-docs/congress-api/members/
 // 
-    function fetchData(congress) {
-        var url = "https://api.myjson.com/bins/1gqjt6"
+    function fetchData(house) {
+        var url = connectionUrl( house );
         console.log(url)
 
         fetch(url, 
