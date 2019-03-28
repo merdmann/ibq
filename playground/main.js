@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
 
-    fetchData()   // if the page has been rendered we get the 
+    fetchData(results.results[0].chamber == "House");   // if the page has been rendered we get the 
 
     const DFilter = function (item) {
         return item.party === 'D';
@@ -248,7 +248,7 @@ input[1].addEventListener('change', function () {
         filters = [];
 
         addFilter(RFilter, filters);
-        fetchDta();
+        fetchData();
     }
     redraw(filters);
 })
