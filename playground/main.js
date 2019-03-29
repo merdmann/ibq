@@ -8,7 +8,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
 
+
+
     fetchData(results.results[0].chamber == "House");   // if the page has been rendered we get the 
+
+    function HandleContents() {
+        var docTitle = document.title;
+        console.log("current page" + docTitle);
+
+    }
+
+    HandleContents();
 
     const DFilter = function (item) {
         return item.party === 'D';
@@ -33,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             result = result & filters[i](item);
         }
 
-        console.log("appl_all_fiters: " + filters.length + ",result: " + result);
+        console.log("applyAllFiters: " + filters.length + ",result: " + result);
         return result
     }
 
@@ -190,7 +200,6 @@ function toTable(rows, filters) {
        
         leastEngaged( 'overview', rows.slice(5) ); 
         mostEngaged( 'overview', rows.slice( rows.length-5, rows.length));
-        leastLoyal
     })
         
     createStatesSelector(listOfStates)
@@ -219,9 +228,6 @@ function toTable(rows, filters) {
     leastEngaged( 'overview', rows.slice(5) ); 
     mostEngaged( 'overview', rows.slice( rows.length-5, rows.length)); 
 };
-
-//fetchData();
-//toTable(rows, addFilter(Default, filters))
 
 
 function redraw(filter, filters) {
@@ -273,13 +279,18 @@ input[2].addEventListener('change', function () {
 // something has changed in the state selection
     const states = document.getElementById('states'); 
     states.addEventListener('change', function () {
-    const  state = getState();
-    const StateFilter = function (item) { return item.state == state;};
 
-    // fetchData();
+    const  state = getState();
+
+    const StateFilter = function (item) { 
+        var result = item.state == state;
+        console.log( item.state + "/" + state);
+        return result;
+    };
+
     console.log("on change state=" + state);
     redraw(addFilter(StateFilter, filters));
-})
+});
 
 
 // this function will take a list of names sorted accoring to engagment of the person.
