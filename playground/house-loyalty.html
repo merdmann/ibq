@@ -13,16 +13,15 @@
 
 <body>
     <!-- // taken from -->
-    <ul class="nav nav-tabs">
+    <ul class="nav container nav-tabs">
         <li class="nav-item">
             <a class="nav-link active" href="./home.html">TGIF</a>
-
-            <nav class="navbar navbar-dark  bg-primary">
-                <a class="navbar-brand" href="#">
-                    <img src="./img/brand.gif" width="160" height="160" alt="">
-                </a>
+            <nav class="navbar navbar-dark  ">
             </nav>
         </li>
+        <li class="nav-item">
+            <a class="nav-link bg-primary" href="./home.html">Home</a>
+          </li>
         <li class="nav-item dropdown">                               
             <a class="nav-link dropdown-toggle bg-primary" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">113 Congresss</a>
             <div class="dropdown-menu">
@@ -44,12 +43,6 @@
                 <a class="dropdown-item" href="./house-loyalty.html">House</a>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" aria-disabled="true">Not Used</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Not Used</a>
-        </li>
     </ul>
 
     <div class="container">
@@ -62,7 +55,43 @@
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
                     
               <div class="col-sm">
-                One of three columns
+                <table class="table striped-tab table-bordered">
+                    <thead class="table table-dark">
+                        <th>Benchmak</th>
+                        <th id="democrates">Democrates</th>
+                        <th id="republicans">Republican</th>
+                        <th id="independant">Indepenant</th>
+                    </thead>
+        
+                    <tbody>
+                        <tr>
+                            <td>Members</td>
+                            <td id="result01"> </td>
+                            <td id="result02"> </td>
+                            <td id="result03"> </td>
+                        </tr>
+                        <tr>
+                            <td>Worst Voter</td>
+                            <td id="result1"> </td>
+                            <td id="result2"> </td>
+                            <td id="result3"> </td>
+                        </tr>
+                        <tr>
+                            <td>Loyalty</td>
+                            <td id="result11"></td>
+                            <td id="result12"></td>
+                            <td id="result13"></td>
+                        </tr>
+                        <tr>
+                            <td>Engagement</td>
+                            <td id="result21"></td>
+                            <td id="result22"></td>
+                            <td id="result23"></td>
+                        </tr>
+                    /tbody>
+            </table>
+
+
               </div>
               <div class="col-sm">
                 One of three columns
@@ -71,6 +100,8 @@
                 One of three columns
               </div>
             </div>
+
+
         <table class="table striped-tab table-bordered">
                 <thead class="table table-dark">
                     <th>Benchmak</th>

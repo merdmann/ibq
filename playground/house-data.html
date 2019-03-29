@@ -16,27 +16,39 @@
 </head>
 
 <body>
-    <!-- // taken from -->
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link active" href="./home.html">TGIF</a>
-
-            <nav class="navbar navbar-light bg-light">
-                <a class="navbar-brand" href="#">
-                    <img src="./img/brand.gif" width="60" height="60" alt="">
-                </a>
-            </nav>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">113 Congresss</a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="./senate-data.html">Senate</a>
-                <a class="dropdown-item" href="./house-data.html">House</a>
-            </div>
-
-            
-        </li>
+   <!-- // taken from -->
+   <ul class="nav container nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="./home.html">TGIF</a>
+        <nav class="navbar navbar-dark  ">
+        </nav>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link bg-primary" href="./home.html">Home</a>
+      </li>
+    <li class="nav-item dropdown">                               
+        <a class="nav-link dropdown-toggle bg-primary" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">113 Congresss</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="./senate-data.html">Senate</a>
+            <a class="dropdown-item" href="./house-data.html">House</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle bg-primary" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Attendance</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="./senate-attendancs.html">Senate</a>
+            <a class="dropdown-item" href="./senate-attendance.html">House</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle bg-primary" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Party Loalty</a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="./senate-loyalty.html">Senate</a>
+            <a class="dropdown-item" href="./house-loyalty.html">House</a>
+        </div>
+    </li>
     </ul>
+
 
     <div class="container">
         <h1>Congressmen</h1>
@@ -50,16 +62,19 @@
                 <select id="states"></select>
             </div>
 
-            <table class="table striped-table">
-                <thead>
-                    <th>Name</th>
-                    <th>Party</th>
-                    <th>votes_with_pct</th>
-                    <th>Homepage</th>
+            <table class="table table table-hover table-striped" id="data-table">
+                <thead class="thead-dark">
+                    <th class="w-5">Members</th>
+                    <th class="w-10">Name</th>
+                    <th class="w-5">Party</th>
+                    <th class="w-5">votes_with_pct</th>
+                    <th class="w-10">State</th>
+                    <th class="w-25">Homepage</th>
                 </thead>
-                <tbody id="root">
+                <tbody id="root" class="table table-striped">
                 </tbody>
             </table>
+    
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

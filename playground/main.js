@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', function () {
         
         var text = document.createTextNode(aString);
         result.innerHTML = " "
-        result.appendChild( text, )    }
-
+        result.appendChild( text, )   
+     }
 
 // R.1 )the number of Democrats, Republicans and Independents
 // R.2 how Democrats and Republicans compare, on average, for voting with their party
@@ -152,7 +152,15 @@ function toTable(rows, filters) {
             // ---------------------- col 1: first_name ---------------------------
             var td = row.insertCell(-1)
 
-            td.appendChild(document.createTextNode(name))
+            // td.appendChild(document.createTextNode(name));
+
+            var a = document.createElement('a')
+            a.href = data.url
+            a.title = 'some link to ' + name + ' page'
+            a.innerHTML = name;
+            td.appendChild(a);
+
+
             // ----------------------col 4: party ----------------------------------
             var td = row.insertCell(-1)
             td.appendChild(document.createTextNode(data.party))
@@ -169,8 +177,8 @@ function toTable(rows, filters) {
             if(!listOfStates.includes(data.state))
                 listOfStates.push(data.state)
             // ----------------------- link to homepage ----------------------------
-
             var td = row.insertCell(-1)
+
             var a = document.createElement('a')
             a.href = data.url
             a.title = 'some link to ' + name + ' page'
@@ -209,8 +217,7 @@ function toTable(rows, filters) {
 
          
     leastEngaged( 'overview', rows.slice(5) ); 
-    mostEngaged( 'overview', rows.slice( rows.length-5, rows.length));
-    
+    mostEngaged( 'overview', rows.slice( rows.length-5, rows.length)); 
 };
 
 //fetchData();
@@ -264,15 +271,14 @@ input[2].addEventListener('change', function () {
 })
 
 // something has changed in the state selection
-var states = document.getElementById('states'); states.addEventListener('change', function () {
-    var state = getState();
-    var CAFilter = function (item) {
-        return item.state == state;
-    };
+    const states = document.getElementById('states'); 
+    states.addEventListener('change', function () {
+    const  state = getState();
+    const StateFilter = function (item) { return item.state == state;};
 
     // fetchData();
     console.log("on change state=" + state);
-    redraw(addFilter(CAFilter, filters));
+    redraw(addFilter(StateFilter, filters));
 })
 
 
