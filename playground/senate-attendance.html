@@ -3,7 +3,7 @@
 
 <head>
     <meta charset=“utf-8”>
-    <title>Simple Javascripts Sandbox</title>
+    <title>Senate attendance</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!-- Required meta tags -->
@@ -16,12 +16,6 @@
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link active" href="./home.html">TGIF</a>
-
-            <nav class="navbar navbar-dark  bg-primary">
-                <a class="navbar-brand" href="#">
-                    <img src="./img/brand.gif" width="260" height="260" alt="">
-                </a>
-            </nav>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle bg-primary" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">113 Congresss</a>
@@ -46,104 +40,141 @@
         </li>
     </ul>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-        <div class="col-sm">        
-        <h1>Attendance</h1>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
-        </div>
+            <div class="col-md-6">
+                <div class="col">
+                    <h1>Attendance</h1>
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,
+                </div>
+            </div>
+    
+    
+            <div class="table-responive col-md-6">
+                <h1>Filler</h1>
+                <table class="table table-bordered">
+                    <thead class="table table-dark">
+                        <th>Benchmak</th>
+                        <th id="democrates">Democrates</th>
+                        <th id="republicans">Republican</th>
+                        <th id="independant">Indepenant</th>
+                    </thead>
 
-        <div class="col-sm">
-        <h1>Senate at a glance</h1>
+                    <tbody>
+                        <tr>
+                            <td>Members</td>
+                            <td id="result01"> </td>
+                            <td id="result02"> </td>
+                            <td id="result03"> </td>
+                        </tr>
+                        <tr>
+                            <td>Worst Voter</td>
+                            <td id="result1"> </td>
+                            <td id="result2"> </td>
+                            <td id="result3"> </td>
+                        </tr>
+                        <tr>
+                            <td>Loyalty</td>
+                            <td id="result11"></td>
+                            <td id="result12"></td>
+                            <td id="result13"></td>
+                        </tr>
+                        <tr>
+                            <td>Engagement</td>
+                            <td id="result21"></td>
+                            <td id="result22"></td>
+                            <td id="result23"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <table class="table striped-tab table-bordered">
-            <thead class="table table-dark">
-                <th>Benchmak</th>
-                <th id="democrates">Democrates</th>
-                <th id="republicans">Republican</th>
-                <th id="independant">Indepenant</th>
-            </thead>
+           <div>
+            <div class="table-responsive col-md-6">
+                <table class="table table-bordered">
+                    <thead class="table table-dark">
+                        <th>Benchmak</th>
+                        <th id="democrates">Democrates</th>
+                        <th id="republicans">Republican</th>
+                        <th id="independant">Indepenant</th>
+                    </thead>
 
-            <tbody>
-                <tr>
-                    <td>Members</td>
-                    <td id="result01"> </td>
-                    <td id="result02"> </td>
-                    <td id="result03"> </td>
-                </tr>
-                <tr>
-                    <td>Worst Voter</td>
-                    <td id="result1"> </td>
-                    <td id="result2"> </td>
-                    <td id="result3"> </td>
-                </tr>
-                <tr>
-                    <td>Loyalty</td>
-                    <td id="result11"></td>
-                    <td id="result12"></td>
-                    <td id="result13"></td>
-                </tr>
-                <tr>
-                    <td>Engagement</td>
-                    <td id="result21"></td>
-                    <td id="result22"></td>
-                    <td id="result23"></td>
-                </tr>
-            </tbody>
-      </div>
-      <div class="col-sm">
-        <HR>
-      </div>
-    </div>
-  </div>
+                    <tbody>
+                        <tr>
+                            <td>Members</td>
+                            <td id="result01"> </td>
+                            <td id="result02"> </td>
+                            <td id="result03"> </td>
+                        </tr>
+                        <tr>
+                            <td>Worst Voter</td>
+                            <td id="result1"> </td>
+                            <td id="result2"> </td>
+                            <td id="result3"> </td>
+                        </tr>
+                        <tr>
+                            <td>Loyalty</td>
+                            <td id="result11"></td>
+                            <td id="result12"></td>
+                            <td id="result13"></td>
+                        </tr>
+                        <tr>
+                            <td>Engagement</td>
+                            <td id="result21"></td>
+                            <td id="result22"></td>
+                            <td id="result23"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive col-md-6">
+                <table class="table table-bordered">
+                    <thead class="table table-dark">
+                        <th>Benchmak</th>
+                        <th id="democrates">Democrates</th>
+                        <th id="republicans">Republican</th>
+                        <th id="independant">Indepenant</th>
+                    </thead>
 
-    <div class="container">
-        <div class="col-md-4">
-            <input type="checkbox" name="party" value="Democrat">Democrat
-            <input type="checkbox" name="party" value="Republican">Republican
-            <input type="checkbox" name="party" value="Independant">Independent
+                    <tbody>
+                        <tr>
+                            <td>Members</td>
+                            <td id="result01"> </td>
+                            <td id="result02"> </td>
+                            <td id="result03"> </td>
+                        </tr>
+                        <tr>
+                            <td>Worst Voter</td>
+                            <td id="result1"> </td>
+                            <td id="result2"> </td>
+                            <td id="result3"> </td>
+                        </tr>
+                        <tr>
+                            <td>Loyalty</td>
+                            <td id="result11"></td>
+                            <td id="result12"></td>
+                            <td id="result13"></td>
+                        </tr>
+                        <tr>
+                            <td>Engagement</td>
+                            <td id="result21"></td>
+                            <td id="result22"></td>
+                            <td id="result23"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
 
-            <select id="states">
-            </select>
-        </div>
-        <table class="table table table-hover table-striped" id="data-table">
-            <thead class="thead-dark">
-                <th class="w-5">Members</th>
-                <th class="w-10">Name</th>
-                <th class="w-5">Party</th>
-                <th class="w-5">votes_with_pct</th>
-                <th class="w-10">State</th>
-                <th class="w-25">Homepage</th>
-            </thead>
-            <tbody id="root" class="table table-striped">
-            </tbody>
-        </table>
-    </div>
 
-  
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Worst Voter</th>
-                <th>Number of Mised</th>
-                <th>% missed</th>
-            </tr>
-        </thead>
 
-        <tbody id="LeastEngaged">
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-        </tbody>
-    </table>
-
- 
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-    <script type="text/javascript" src="./pro-congress-113-senate.json"></script>
-    <script src="./main.js"></script>
+                <script type="text/javascript" src="./pro-congress-113-senate.json"></script>
+                <script src="./main.js"></script>
 </body>
 
 </html>

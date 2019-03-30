@@ -1,24 +1,54 @@
+/*
+ * Refactored version 
+ * After the currtenly opened page has been rendered depending on the page name 
+ * the dcission is taken which data is oto be request from the the server. The data
+ *  will be proceessed after  the data  has been received. 
+ * 
+ */
 "use strict";
 
 document.addEventListener('DOMContentLoaded', function () {
     console.log('DOM Tree loaded');
 
+    var filters = [];
+
+    // Needs to be refctored since it hides intention bhind a boolean,
     function connectionUrl( house ) {
         return house ? "https://api.myjson.com/bins/16obo" : "https://api.myjson.com/bins/1gqjt6;"
     }
     
-
-
-
-    fetchData(results.results[0].chamber == "House");   // if the page has been rendered we get the 
-
-    function HandleContents() {
+    //this function handles the dynamic comtents for title of s htnl pyges
+    function HandleContents(data) {
         var docTitle = document.title;
-        console.log("current page" + docTitle);
-
+        console.log("current page :" + docTitle);
+        
+        switch(docTitle) {
+            case "Senate Data":
+                    // Display the Senate data
+                    fetchData(false)
+            case "House Data":
+                    // Display House dataq
+                    fetchData(true);
+                
+            case "House attemdance":
+            
+            case "Senate attendance":
+                   
+                
+                
+        }
     }
-
     HandleContents();
+
+    function  ProcessAndRender(data) {
+        var docTitle = document.title;
+        console.log("ProceesAndReder current page :" + docTitle);
+       
+        switch(docTitle) {
+            case "Senate Data":
+                toTable(data,filters);
+        }
+    }
 
     const DFilter = function (item) {
         return item.party === 'D';
@@ -35,13 +65,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var filters = [];
 
-    // execute the given filters.
-    function applyFilters(item) {
-        var result = true;
+    // execute the given filters by anding the result
+    function applyAllFilters(data) {
+        let result = true;
 
-        for (var i = 0; i < filters.length; ++i) {
-            result = result & filters[i](item);
-        }
+        filters.forEach( function(item){ result = result & item(data)} )
 
         console.log("applyAllFiters: " + filters.length + ",result: " + result);
         return result
@@ -147,10 +175,8 @@ function toTable(rows, filters) {
             max_missed_votes[ data.party ] = data.missed_votes;
             max_missed_name[ data.party ] = name;
         }
-    
-        // attendance_by_name[name] = data.total_present;    
-        
-        if (applyFilters(data, filters)) {
+          
+        if (applyAllFilters(data, filters)) {
             var row = tab.insertRow(-1)
             var td = row.insertCell(0)
             td.appendChild(document.createTextNode(members++))
@@ -284,7 +310,7 @@ input[2].addEventListener('change', function () {
 
     const StateFilter = function (item) { 
         var result = item.state == state;
-        console.log( item.state + "/" + state);
+        console.log( "State: " + item.state + "/" + state);
         return result;
     };
 
@@ -411,13 +437,13 @@ function leastLoyal( root, tab ) {
                 /* mode: "cors" */})
             .then( function(response) {
                 document.body.style.cursor = "wait"  
-                console.log( response )
                 return response.json();
             }
             ).then( function(myJson) {
-                console.log(myJson);
+                //console.log(myJson);
                 document.body.style.cursor = "auto"  
-                toTable( myJson.results[0].members, filters); 
+            
+                ProcessAndRender( myJson.results[0].members )
             }).catch(err => console.log(err));
     }
 }) // DOMContentLoaded handler
