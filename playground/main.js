@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
             case "House attemdance":
             
             case "Senate attendance":
+                    fetchData(false); // will trigger ProcessAndRender
                    
                 
                 
@@ -42,11 +43,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function  ProcessAndRender(data) {
         var docTitle = document.title;
-        console.log("ProceesAndReder current page :" + docTitle);
+        console.log("ProceesAndReder current page :" + docTitle + "procesing records: " + data.length );
+        var nbrOfMembers = {'D': 0.0, 'R':0.0,  'I': 0.0 };
+        
        
         switch(docTitle) {
             case "Senate Data":
-                toTable(data,filters);
+                toTable(data,filters);  // renders the data into a table
+                
+            case "Senate attendance": 
+                data.forEach( function(item) {                  
+                    nbrOfMembers[ item.party ] = nbrOfMembers[item.party] + 1; 
+                             
+                });
+                console.log( data.length);
+                console.log( nbrOfMembers);
+                
+                place_result(nbrOfMembers['D'], "R_Reps" );
+                place_result(nbrOfMembers['R'], "D_Reps" );
+                place_result(nbrOfMembers['I'], "I_Reps" );
+
+                
+                
         }
     }
 
@@ -155,7 +173,7 @@ function toTable(rows, filters) {
         nbrOfMembers[ data.party ] +=1; // R.2
 
         // calculate a valid name string
-        var name = data.first_name + ' ' + (data.middle_name === null ? ' ' :data.middle_name) + ' ' + data.last_name;
+        var name = data.short_title+' '+data.first_name + ' ' + (data.middle_name === null ? ' ' :data.middle_name) + ' ' + data.last_name;
 
         // Req. R.4
         if (data.missed_votes > max_missed_votes[data.party]) {
@@ -232,9 +250,9 @@ function toTable(rows, filters) {
    
  //   console.log( nbrOfMembers );
 
-    place_result(nbrOfMembers['D'], "result01" );
-    place_result(nbrOfMembers['R'], "result02" );
-    place_result(nbrOfMembers['I'], "result03" );
+    place_result(nbrOfMembers['D'], "R_Reps" );
+    place_result(nbrOfMembers['R'], "D_Reps" );
+    place_result(nbrOfMembers['I'], "I_Reps" );
 
     place_result( worst_voter_name['D'] + " with " + max_missed_votes['D'] + " missed votes", "result1");
     place_result( worst_voter_name['R'] + " with " + max_missed_votes['R'] + " missed votes", "result2");
