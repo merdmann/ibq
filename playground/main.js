@@ -42,29 +42,43 @@ document.addEventListener('DOMContentLoaded', function () {
     HandleContents();
 
     function  ProcessAndRender(data) {
-        var docTitle = document.title;
-        console.log("ProceesAndReder current page :" + docTitle + "procesing records: " + data.length );
-        var nbrOfMembers = {'D': 0.0, 'R':0.0,  'I': 0.0 };
-        
+        let docTitle = document.title;
+        console.log("ProceesAndReder current page :" + docTitle + " procesing records: " + data.length );
+        let nbrOfMembers = {'D': 0.0, 'R':0.0,  'I': 0.0 };
+        let votes_with = {'D': 0.0, 'R':0.0,  'I': 0.0 };
        
         switch(docTitle) {
             case "Senate Data":
                 toTable(data,filters);  // renders the data into a table
                 
             case "Senate attendance": 
+                const by_missed_votes = function(a,b) { return a.missed_votes - b.missed_votes};
+
                 data.forEach( function(item) {                  
                     nbrOfMembers[ item.party ] = nbrOfMembers[item.party] + 1; 
-                             
+                    
+                    votes_with[ item.party ] =+ item.votes_with_party_pct;
+             
                 });
+                
+                votes_with[ 'R'] = votes_with['R'] / nbrOfMembers['R'];
+                votes_with[ 'D'] = votes_with['D'] / nbrOfMembers['D'];
+                votes_with[ 'I'] = votes_with['I'] / nbrOfMembers['I'];
+                
                 console.log( data.length);
                 console.log( nbrOfMembers);
                 
-                place_result(nbrOfMembers['D'], "R_Reps" );
-                place_result(nbrOfMembers['R'], "D_Reps" );
+                place_result(nbrOfMembers['D'], "D_Reps" );
+                place_result(nbrOfMembers['R'], "R_Reps" );
                 place_result(nbrOfMembers['I'], "I_Reps" );
+                
+                place_result(nbrOfMembers['I']+nbrOfMembers['R']+nbrOfMembers['D'], "Total_Reps" );
 
-                
-                
+                place_result(votes_with['D'].toFixed(2), "D_VW" );
+                place_result(votes_with['R'].toFixed(2), "R_VW" );
+                place_result(votes_with['I'].toFixed(2), "I_VW" )
+            
+                data.sort( by_missed_votes);
         }
     }
 
