@@ -52,13 +52,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 toTable(data,filters);  // renders the data into a table
                 
             case "Senate attendance": 
-                const by_missed_votes = function(a,b) { return a.missed_votes - b.missed_votes};
+                const by_missed_votes = function(a,b) { return b.missed_votes - a.missed_votes};
 
                 data.forEach( function(item) {                  
                     nbrOfMembers[ item.party ] = nbrOfMembers[item.party] + 1; 
                     
-                    votes_with[ item.party ] =+ item.votes_with_party_pct;
-             
+                    votes_with[ item.party ] =+ item.votes_with_party_pct;             
                 });
                 
                 votes_with[ 'R'] = votes_with['R'] / nbrOfMembers['R'];
@@ -78,10 +77,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 place_result(votes_with['R'].toFixed(2), "R_VW" );
                 place_result(votes_with['I'].toFixed(2), "I_VW" )
             
-                data.sort( by_missed_votes);
+                let most = data.sort( by_missed_votes).slice(1,5);
+                let least = data.sort( by_missed_votes).slice(data.length-5, data.length);
+                
+                FillTable( "most_engaged", most);
+                FillTable( "least_engaged", least);
+                
         }
     }
 
+    // the filters for the all Hopuse or all senate data  filters
     const DFilter = function (item) {
         return item.party === 'D';
     };
@@ -149,6 +154,13 @@ document.addEventListener('DOMContentLoaded', function () {
         result.appendChild( text, )   
      }
 
+    
+    function properName(data) {
+        
+        // calculate a valid name string
+        return data.short_title+' '+data.first_name + ' ' + (data.middle_name === null ? ' ' :data.middle_name) + ' ' + data.last_name;
+
+    }
 // R.1 )the number of Democrats, Republicans and Independents
 // R.2 how Democrats and Republicans compare, on average, for voting with their party
 // R.3 which members most often do not vote with their party, which ones most often do vote with their party
@@ -255,36 +267,12 @@ function toTable(rows, filters) {
 
             tab.appendChild(row);
         }
-       
-        leastEngaged( 'overview', rows.slice(5) ); 
-        mostEngaged( 'overview', rows.slice( rows.length-5, rows.length));
     })
         
     createStatesSelector(listOfStates)
    
  //   console.log( nbrOfMembers );
 
-    place_result(nbrOfMembers['D'], "R_Reps" );
-    place_result(nbrOfMembers['R'], "D_Reps" );
-    place_result(nbrOfMembers['I'], "I_Reps" );
-
-    place_result( worst_voter_name['D'] + " with " + max_missed_votes['D'] + " missed votes", "result1");
-    place_result( worst_voter_name['R'] + " with " + max_missed_votes['R'] + " missed votes", "result2");
-    place_result( worst_voter_name['I'] + " with " + max_missed_votes['I'] + " missed votes", "result3");
-    
-    place_result(bad_voter['D'], "result11");
-    place_result(bad_voter['R'], "result12");
-    place_result(bad_voter['I'], "result13");
-
-    //console.log( max_missed_name);
-
-    place_result(max_missed_name['D'], "result21");
-    place_result(max_missed_name['R'], "result22");
-    place_result(max_missed_name['I'], "result23");
-
-         
-    leastEngaged( 'overview', rows.slice(5) ); 
-    mostEngaged( 'overview', rows.slice( rows.length-5, rows.length)); 
 };
 
 
@@ -352,7 +340,7 @@ input[2].addEventListener('change', function () {
 
 
 // this function will take a list of names sorted accoring to engagment of the person.
-function leastEngaged( root, tab ) {
+function FillTable( root, tab ) {
     var tbdy= document.getElementById(root)
     if(tbdy == null)
         return;
@@ -363,7 +351,7 @@ function leastEngaged( root, tab ) {
 
         // name 
         console.log(item.last_name);
-        td.appendChild(document.createTextNode(item.last_name));
+        td.appendChild(document.createTextNode(properName(item)));
         
         // missed votes
         td = tr.insertCell(-1)
@@ -377,84 +365,7 @@ function leastEngaged( root, tab ) {
     });// end for each
 }
 
-function mostEngaged( root, tab ) { 
-    var tbdy= document.getElementById(root)
-    if(tbdy == null)
-        return;
 
-    tab.forEach( function (item) {
-        console.log(item);
-        var tbdy= document.getElementById(root)
-        var tr = tbdy.insertRow(-1)
-        var td = tr.insertCell(0)
-
-        // name 
-        console.log(item.last_name);
-        td.appendChild(document.createTextNode(item.last_name));
-        
-        // missed votes
-        td = tr.insertCell(-1)
-        td.appendChild(document.createTextNode(item.missed_votes ))
-            
-        // missed votes in %
-        td = tr.insertCell(-1)
-        td.appendChild(document.createTextNode( (100 * item.missed_votes / item.total_votes).toFixed(2)));
-
-        tbdy.appendChild(tr);
-    });// end for each
-}
-
-function mostLoyal( root, tab ) { 
-    var tbdy= document.getElementById(root)
-    if(tbdy == null)
-        return;
-    tab.forEach( function (item) {
-        console.log(item);
-        var tbdy= document.getElementById(root)
-        var tr = tbdy.insertRow(-1)
-        var td = tr.insertCell(0)
-
-        // name 
-        console.log(item.last_name);
-        td.appendChild(document.createTextNode(item.last_name));
-        
-        // missed votes
-        td = tr.insertCell(-1)
-        td.appendChild(document.createTextNode(item.missed_votes ))
-            
-        // missed votes in %
-        td = tr.insertCell(-1)
-        td.appendChild(document.createTextNode( (100 * item.missed_votes / item.total_votes).toFixed(2)));
-
-        tbdy.appendChild(tr);
-    });// end for each
-}
-
-function leastLoyal( root, tab ) { 
-    var tbdy= document.getElementById(root)
-    if(tbdy == null)
-        return;
-    tab.forEach( function (item) {
-        console.log(item);
-        var tbdy= document.getElementById(root)
-        var tr = tbdy.insertRow(-1)
-        var td = tr.insertCell(0)
-
-        // name 
-        console.log(item.last_name);
-        td.appendChild(document.createTextNode(item.last_name));
-        
-        // missed votes
-        td = tr.insertCell(-1)
-        td.appendChild(document.createTextNode(item.missed_votes ))
-            
-        // missed votes in %
-        td = tr.insertCell(-1)
-        td.appendChild(document.createTextNode( (100 * item.missed_votes / item.total_votes).toFixed(2)));
-
-        tbdy.appendChild(tr);
-    });// end for each
-}
 //
 // see also https://projects.propublica.org/api-docs/congress-api/members/
 // 
