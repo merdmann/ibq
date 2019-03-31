@@ -26,19 +26,22 @@ document.addEventListener('DOMContentLoaded', function () {
             case "Senate Data":
                     // Display the Senate data
                     fetchData(false);
+                    break;
             case "House Data":
                     // fetch house data
                     fetchData(true);
+                    break;
             case "House Loyalty":
                     fetchData(true);
-                
+                    break;
             case "House attemdance":
             case "Senate attendance":
             case "Senate Loyalty":
                     fetchData(false); // will trigger ProcessAndRender
-            
+                    break;
              case "House loyalty":
-                    fetchData(false);    
+                    fetchData(false);
+                    break;
                 
         }
     }
@@ -53,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
         switch(docTitle) {
             case "House Data":
             case "Senate Data":
-                toTable(data,filters);  // renders the data into a table and applys the filter criteria
+                toTable(data);  // renders the data into a table and applys the filter criteria
                 
             case "Senate attendance": 
                 const by_missed_votes = function(a,b) { return b.missed_votes - a.missed_votes};
@@ -67,10 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 votes_with[ 'R'] = votes_with['R'] / nbrOfMembers['R'];
                 votes_with[ 'D'] = votes_with['D'] / nbrOfMembers['D'];
                 votes_with[ 'I'] = votes_with['I'] / nbrOfMembers['I'];
-                
-                console.log( data.length);
-                console.log( nbrOfMembers);
-                
+     
                 place_result(nbrOfMembers['D'], "D_Reps" );
                 place_result(nbrOfMembers['R'], "R_Reps" );
                 place_result(nbrOfMembers['I'], "I_Reps" );
@@ -86,7 +86,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 
                 FillTable( "most_engaged", most);
                 FillTable( "least_engaged", least);
-            
+                
+                break;
+                
             case "Senate Loyalty":
                 const by_with_votes = function(a,b) { return b.votes_with_party_pct - a.votes_with_party_pct};
                 
@@ -113,6 +115,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(mostLoyal);
                 console.log(leastLoyal);
                 FillTable( "least_loyal", leastLoyal);
+                
+                break;
         }
     }
 
@@ -134,20 +138,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // execute the given filters by anding the result
     function applyAllFilters(data) {
-        let result = true;
+        var result = true;
 
-        filters.forEach( function(item){ result = result & item(data)} )
+        filters.forEach( function(f) { result = result & f(data) })
 
         console.log("applyAllFiters: " + filters.length + ",result: " + result);
         return result
     }
 
 
-    function addFilter(aFilter, condition) {
-        condition.push(aFilter);
-        console.log("addFilter elements: ", condition.length);
-
-        return condition;
+    function addFilter(aFilter) {
+        filters.push(aFilter);
     }
 
     //-------------- stuff needed for the state filter ------
@@ -198,14 +199,13 @@ document.addEventListener('DOMContentLoaded', function () {
 // R.4 Display the result object in one table
 
 // ------------------------------------------------------------------
-function toTable(rows, filters) {
+function toTable(rows) {
     var listOfStates = [];
     var tab = document.getElementById('root');
     var members = 0;
     var democrates = 0;
     var reps = 0;
     var independents = 0;
-    var filters = [];
     // setup the initial data for the statics aspects
     // R.2 
     var votes_with       = {'D': 0.0, 'R': 0.0, 'I': 0.0 };
@@ -223,8 +223,6 @@ function toTable(rows, filters) {
 
     rows.sort( by_missed_votes ).forEach( function(data) {
         votes_with[data.party] += data.votes_with_party_pct; // not used
-
-        console.log( data );
 
         nbrOfMembers[ data.party ] +=1; // R.2
 
@@ -250,7 +248,7 @@ function toTable(rows, filters) {
             max_missed_name[ data.party ] = name;
         }
           
-        if (applyAllFilters(data, filters)) {
+        if (applyAllFilters(data)) {
             var row = tab.insertRow(-1)
             var td = row.insertCell(0)
             td.appendChild(document.createTextNode(members++))
@@ -306,7 +304,7 @@ function toTable(rows, filters) {
 };
 
 
-function redraw(filter, filters) {
+function redraw() {
     // clear the screen and redraw all
     document.getElementById('root').remove();
 
@@ -316,7 +314,8 @@ function redraw(filter, filters) {
     tbody.id = 'root'
     tab.appendChild(tbody);
     tbody.setAttribute("class", "table table-striped");
-//    toTable(results.results[0].members, filters)
+  //  toTable(results.results[0].members)
+    location.reload(true);
 }
 
 // --- democorates
@@ -324,32 +323,24 @@ var input = document.getElementsByTagName("input");
 
 input[0].addEventListener('change', function () {
     if (input[0].checked) {
-        filters = [];
-
-        addFilter(DFilter, filters);
-        fetchData();
+        addFilter(DFilter);
     }
-    redraw(filters);
+    redraw();
 })
 // --- republicans
 input[1].addEventListener('change', function () {
     if (input[1].checked) {
-        filters = [];
-
-        addFilter(RFilter, filters);
-        fetchData();
+      
+        addFilter(RFilter);
     }
-    redraw(filters);
+    redraw();
 })
 // ----independant 
 input[2].addEventListener('change', function () {
     if (input[2].checked) {
-        filters = [];
-
-        addFilter(IFilter, filters);
-        fetchData();
+        addFilter(IFilter);
     }
-    redraw(filters);
+    redraw();
 })
 
 // something has changed in the state selection
@@ -365,9 +356,8 @@ input[2].addEventListener('change', function () {
     };
 
     console.log("on change state=" + state);
-    redraw(addFilter(StateFilter, filters));
-});
-
+    filters.push(StateFilter);
+    })
 
 // this function will take a list of names sorted accoring to engagment of the person.
 function FillTable( root, tab ) {
