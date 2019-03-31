@@ -25,17 +25,20 @@ document.addEventListener('DOMContentLoaded', function () {
         switch(docTitle) {
             case "Senate Data":
                     // Display the Senate data
-                    fetchData(false)
+                    fetchData(false);
             case "House Data":
-                    // Display House dataq
+                    // fetch house data
+                    fetchData(true);
+            case "House Loyalty":
                     fetchData(true);
                 
             case "House attemdance":
-            
             case "Senate attendance":
+            case "Senate Loyalty":
                     fetchData(false); // will trigger ProcessAndRender
-                   
-                
+            
+             case "House loyalty":
+                    fetchData(false);    
                 
         }
     }
@@ -43,13 +46,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function  ProcessAndRender(data) {
         let docTitle = document.title;
-        console.log("ProceesAndReder current page :" + docTitle + " procesing records: " + data.length );
+        console.log("ProceesAndRender current page :" + docTitle + " procesing records: " + data.length );
         let nbrOfMembers = {'D': 0.0, 'R':0.0,  'I': 0.0 };
         let votes_with = {'D': 0.0, 'R':0.0,  'I': 0.0 };
        
         switch(docTitle) {
+            case "House Data":
             case "Senate Data":
-                toTable(data,filters);  // renders the data into a table
+                toTable(data,filters);  // renders the data into a table and applys the filter criteria
                 
             case "Senate attendance": 
                 const by_missed_votes = function(a,b) { return b.missed_votes - a.missed_votes};
@@ -82,7 +86,33 @@ document.addEventListener('DOMContentLoaded', function () {
                 
                 FillTable( "most_engaged", most);
                 FillTable( "least_engaged", least);
+            
+            case "Senate Loyalty":
+                const by_with_votes = function(a,b) { return b.votes_with_party_pct - a.votes_with_party_pct};
                 
+                data.forEach( function(item) {                  
+                    nbrOfMembers[ item.party ] = nbrOfMembers[item.party] + 1; 
+                         
+                });
+                
+                // this ithe part i need for the glamce table
+                votes_with[ 'R'] = votes_with['R'] / nbrOfMembers['R'];
+                votes_with[ 'D'] = votes_with['D'] / nbrOfMembers['D'];
+                votes_with[ 'I'] = votes_with['I'] / nbrOfMembers['I'];
+     
+                
+                place_result(nbrOfMembers['D'], "D_Reps" );
+                place_result(nbrOfMembers['R'], "R_Reps" );
+                place_result(nbrOfMembers['I'], "I_Reps" );
+                
+                place_result(nbrOfMembers['I']+nbrOfMembers['D']+nbrOfMembers['R'], "Total_Reps" );
+                let mostLoyal = data.sort( by_with_votes).slice(1,5);
+                let leastLoyal = data.sort( by_with_votes).slice(data.length-5, data.length);
+                
+                FillTable( "most_loyal", mostLoyal);
+                console.log(mostLoyal);
+                console.log(leastLoyal);
+                FillTable( "least_loyal", leastLoyal);
         }
     }
 
@@ -359,7 +389,7 @@ function FillTable( root, tab ) {
             
         // missed votes in %
         td = tr.insertCell(-1)
-        td.appendChild(document.createTextNode( (100 * item.missed_votes / item.total_votes).toFixed(2)));
+        td.appendChild(document.createTextNode( (item.votes_with_party_pct)));
 
         tbdy.appendChild(tr);
     });// end for each
