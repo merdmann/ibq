@@ -8,15 +8,22 @@ new Vue({
     el: '#app',
     data: {
         product: [],
+        sorted : [],
         results: [],
         states : [],
-        selectedParty : [], 
+        selectedParty : [],
+        selectedState : "not set",
     },
     methods: {
-
         dataChanged() {
             // this tells, the selected  party has changed.
-            console.log("Data Changed****");
+            console.log("*** Data changed selected party" + this.selectedParty);
+            this.results.forEach(item => { 
+                if(/* this.selectedParty.includes(item.party) */  item.state == selectedState ) {
+                    console.log(item.state);
+                    this.sorted.push(item);
+                }
+            })
         },
 
         fetchData(){
@@ -57,12 +64,14 @@ new Vue({
     },
 
     filters: {
-        capitalize: function (value) {
+        properName: function (value) {
           if (!value) return ''
-          value = value.toString()
-          return value.charAt(0).toUpperCase() + value.slice(1)
-        }
+
+          var name = value.first_name + ' ' + (value.middle_name === null ? ' ' :value.middle_name) + ' ' + value.last_name;
+          
+          return name;
       }
+    }
 })
 
 

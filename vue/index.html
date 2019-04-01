@@ -19,9 +19,8 @@
     
     <div id="app">
             <div class="container">
-                    <div class="col-md-4">
-                    
-                            <input type="checkbox" id="democrat" value="D" v-model="selectedParty" v-on:change="dataChanged">
+                    <div class="col-md-4">                    
+                            <input type="checkbox" id="democrat" value="D" v-model="selectedParty">
                             <label for="democrat">democrat</label>
                             <input type="checkbox" id="republican" value="R" v-model="selectedParty">
                             <label for="republican">republican</label>
@@ -29,17 +28,17 @@
                             <label for="independant">imdepend </label>
                             <br>
                             <span>selectedParty: {{ selectedParty }}</span>
-                        
-
-
-                            <select id="states" v-model="states">
+                            <span>selectedState: {{ selectedState }}</span>
+                            <span>sorted ==> {{ sorted }} </span>
+                            
+                            <select id="states" v-model="selectedState" v-on:change="dataChanged">
                                 <option v-for="state in states" :value="state">
                                     {{state}}
                                 </option>
                             </select>
                     </div> 
                 </div>
-        <p> {{ states }}</p>
+                
         <table>
             <thead class="thead-dark">
                 <th >Members</th>
@@ -51,8 +50,7 @@
             </thead>
             <tbody>
             <tr v-for="item in results">
-                <!-- <td>{{ item.first_name + " " + item.last_name}}</td> -->
-                <td>{{properName(item)}}</td>
+                <td>{{item | properName }}</td>
                 <td>{{item.party}} </td>
                 <td>{{item.votes_with_pct}}</td>
                 <td>{{item.state}}</td>
