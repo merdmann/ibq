@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Needs to be refctored since it hides intention bhind a boolean,
   function connectionUrl (house) {
     return house
-      ? 'https://api.myjson.com/bins/16obo'
+      ? 'https://api.myjson.com/bins/16oboq'
       : 'https://api.myjson.com/bins/1gqjt6;'
   }
 
@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return response.json()
       })
       .then(function (myJson) {
-        // console.log(myJson);
+        console.log(myJson);
         document.body.style.cursor = 'auto'
 
         ProcessAndRender(myJson.results[0].members)
