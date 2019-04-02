@@ -55,19 +55,21 @@ function placeCard( name, title ) {
         const frontCover = elem.portada;
         const backCover = elem.detalee;
         const title = elem.titolo;
+        const card = document.getElementById("card1");
     
         console.log(data);
         
         var img = document.getElementById("card_image");
         img.setAttribute("src", frontCover );
+        img.setAttribute("width", "70%");
         var card_text = document.getElementById("card-text");
-        card_text.innerHTML = title;
+        img.innerHTML = title;
             
 
         card.addEventListener("mouseover", function() {
             console.log("... flip ...");
         })
-         console.log( data );
+        console.log( data );
     });
   }
 
