@@ -31,46 +31,39 @@ document.addEventListener('DOMContentLoaded', function () {
               </div>
               */
 
-function placeCard( name, title ) {
+function addElement( parent, elem, className, id, value) {
+    var element = document.createElement(elem);
+    if( className !== "")
+        element.classList.add( className );
+    
+    if( id !== "")
+        element.setAttribute( id, value);    
+    
+    parent.appendChild(element)
+    
+    return element;
+}    
+    
+function placeCard( name, frontcover,title ) {
         const root = document.getElementById(name);   
         console.log("***name: " & name & " " & root);
     
 
-        var div0 = document.createElement("div");
-        div0.classList.add("card");
-        div0.setAttribute("style", "width: 18rem");
-        var div1 = document.createElement("div");
-        div1.classList.add( "flip-card");
-        var div2 = document.createElement("div") 
-        div2.classList.add( "flip-card-inner");
-        div1.appendChild(div2);
-        var div3= document.createElement("div");
-        div0.appendChild(div3)
-        div3.classList.add("flip-card-front")
-        var img = document.createElement("img");
-        div3.appendChild(img);
-        var div4 = document.createElement("div");
-        div4.classList.add("flip-card-back")
-        div3.appendChild( div4 );
+        var div0 = addElement( root, "div", "card", "style", "width: 18rem" )
+        var div1 = addElement( div0, "div", "flip-card", "","" )
+        var div2 = addElement( div1, "div", "flip-card-inner", "", "")
+        var div3 = addElwment( div2 ,"div", "flip-card-front", "", "")
+        var img  = addElement( div3, "img", "", "src", frontcover)
         
-
-        var card_body = document.createElement("div")
-        card_body.classList.add("card-body");
-        div4.appendChild( card_body )
-       
-        var h5 =document.createElement("h5")        
-        h5.setAttribute("id", "title");
-        
-        card_body.appendChild( h5 )
-        h5.innerHTML = title;
-        var p = document.createElement("p")
-        p.setAttribute("id", "card-text")
-        p.classList.add("card-title")
-        card_body.appendChild(p);
-        var a = document.createElement("a")
-        a.classList.add( "btn-primry")
-        a.setAttribute("href", "#"); 
-        card_body.appendChild(a)    
+        var div4 = addElememt( div3, "div", "flip-card-back", "", "")
+        var h1   = addElement(  div3, "h1", "id", "book-autor-nam")
+        var p    = addElement( div3, "p", "", "", "");
+        var div5 = addElement( div0, "div", "card-body", "", "")
+        var h5   = addElement( div0, "h5", "card-title", "id", "title");
+        var pp   = addElement( div0, "p", "card-text", "id", "card-text");
+        var a = addElement(div0, "a", "btn btn-primary", "href","#");
+                             
+    
         root.appendChild(div0);
     
         return root;
@@ -84,7 +77,7 @@ function placeCard( name, title ) {
 
         console.log(elem)
 
-        placeCard("card1", elem.titolo);
+        placeCard("card1", elem.portada, elem.titolo);
         
         const _book_front_cover_ = document.getElementById("book-front-cover");
         _book_front_cover_.setAttribute("src", frontCover );  // put the image 
