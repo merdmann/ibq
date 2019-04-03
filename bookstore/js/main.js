@@ -43,60 +43,65 @@ function addElement( parent, elem, className, id, value) {
     
     return element;
 }    
+
+function uniqId( item, id) {
+  return item +"-"+id;
+}
     
 function placeCard( name, frontcover,title ) {
         const root = document.getElementById(name);   
         console.log("***name: " & name & " " & root);
     
-
         const div0 = addElement( root, "div", "card", "style", "width: 18rem" )
         const div1 = addElement( div0, "div", "flip-card", "","" )
         const div2 = addElement( div1, "div", "flip-card-inner", "", "")
         const div3 = addElement( div2, "div", "flip-card-front", "", "")
         const img  = addElement( div3, "img", "", "src", frontcover)
-        const div4 = addElememt( div3, "div", "flip-card-back", "", "")
-        const h1   = addElement( div3, "h1", "id", "book-autor-name")
+        img.setAttribute("style", "width:70%");
+        const div4 = addElement( div3, "div", "flip-card-back", "", "")
+        const h1   = addElement( div3, "h1", "id", uniqId("book-autor-name"));
         const p    = addElement( div3, "p", "", "", "");
         const div5 = addElement( div0, "div", "card-body", "", "")
-        const h5   = addElement( div0, "h5", "card-title", "id", "title");
-        const pp   = addElement( div0, "p", "card-text", "id", "card-text");
-        const a    = addElement( div0, "a", "btn btn-primary", "href","#");
+        const h5   = addElement( div0, "h5", "card-title", "id",uniqId(name, "book-title"));
+        const pp   = addElement( div0, "p", "card-text", "id", uniqId(name, "card-text" ));
+        const a    = addElement( div0, "a", "btn", "id", uniqId(name,"more-info" ));
+        a.classList.add( "btn-primary");
                              
-    
         root.appendChild(div0);
     
         return root;
 }
  
 
-  function Show(elem){
+  function Show(location, elem){
         const frontCover = elem.portada;
         const moreInfo= elem.detallee;
         const title = elem.titolo;
 
         console.log(elem)
 
-        placeCard("card1", elem.portada, elem.titolo);
+        placeCard(location, elem.portada);
         
-        const _book_front_cover_ = document.getElementById("book-front-cover");
+        const _book_front_cover_ = document.getElementById(uniqId(location,"book-front-cover"));
         _book_front_cover_.setAttribute("src", frontCover );  // put the image 
   
-
-        const _book_autor_ = document.getElementById("book-autor-name");
+        const _book_autor_ = document.getElementById(uniqId(location,"book-autor-name"));
         _book_autor_.innerHTML = elem.description;
-        const _book_title_  = document.getElementById("book-title");
+        const _book_title_  = document.getElementById(UniqId(location,"book-title"));
         _book_title_.innerHTML = elem.titulo;
-        const _more_info_ = document.getElementById("more-info");
+        const _more_info_ = document.getElementById(UniqId(location, "more-info"));
         _more_info_.setAttribute("href", elem.detallee);
 
-        var _book_description_ = document.getElementById("#book-description");
+        var _book_description_ = document.getElementById(UniqId( location, "book-description"));
         _book_description_.innerHTML = elem.description;
   };
 
   function ProcessAndRender( data ){
     const books = data["books"]
 
-    Show( books[2])
+    books.forEach( function(item) { Show( "card1", item ) } )
+    //Show( "card1", books[2])
+    //Show( "card1", books[3])
   }
 
   // Needs to be refctored since it hides intention bhind a boolean,
