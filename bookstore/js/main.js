@@ -49,19 +49,18 @@ function placeCard( name, frontcover,title ) {
         console.log("***name: " & name & " " & root);
     
 
-        var div0 = addElement( root, "div", "card", "style", "width: 18rem" )
-        var div1 = addElement( div0, "div", "flip-card", "","" )
-        var div2 = addElement( div1, "div", "flip-card-inner", "", "")
-        var div3 = addElwment( div2 ,"div", "flip-card-front", "", "")
-        var img  = addElement( div3, "img", "", "src", frontcover)
-        
-        var div4 = addElememt( div3, "div", "flip-card-back", "", "")
-        var h1   = addElement(  div3, "h1", "id", "book-autor-nam")
-        var p    = addElement( div3, "p", "", "", "");
-        var div5 = addElement( div0, "div", "card-body", "", "")
-        var h5   = addElement( div0, "h5", "card-title", "id", "title");
-        var pp   = addElement( div0, "p", "card-text", "id", "card-text");
-        var a = addElement(div0, "a", "btn btn-primary", "href","#");
+        const div0 = addElement( root, "div", "card", "style", "width: 18rem" )
+        const div1 = addElement( div0, "div", "flip-card", "","" )
+        const div2 = addElement( div1, "div", "flip-card-inner", "", "")
+        const div3 = addElement( div2, "div", "flip-card-front", "", "")
+        const img  = addElement( div3, "img", "", "src", frontcover)
+        const div4 = addElememt( div3, "div", "flip-card-back", "", "")
+        const h1   = addElement( div3, "h1", "id", "book-autor-name")
+        const p    = addElement( div3, "p", "", "", "");
+        const div5 = addElement( div0, "div", "card-body", "", "")
+        const h5   = addElement( div0, "h5", "card-title", "id", "title");
+        const pp   = addElement( div0, "p", "card-text", "id", "card-text");
+        const a    = addElement( div0, "a", "btn btn-primary", "href","#");
                              
     
         root.appendChild(div0);
